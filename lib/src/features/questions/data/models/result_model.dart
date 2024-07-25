@@ -5,6 +5,7 @@ class ResultModel {
   int? hcS;
   int? hcE;
   int? hcC;
+  List<String>? interest;
   String? rlabel;
   String? rdescr;
   String? ilabel;
@@ -25,6 +26,7 @@ class ResultModel {
       this.hcS,
       this.hcE,
       this.hcC,
+      this.interest,
       this.rlabel,
       this.rdescr,
       this.ilabel,
@@ -45,6 +47,7 @@ class ResultModel {
     hcS = json['hcS'];
     hcE = json['hcE'];
     hcC = json['hcC'];
+    interest = json['interest'].cast<String>();
     rlabel = json['Rlabel'];
     rdescr = json['Rdescr'];
     ilabel = json['Ilabel'];
@@ -67,6 +70,7 @@ class ResultModel {
     data['hcS'] = this.hcS;
     data['hcE'] = this.hcE;
     data['hcC'] = this.hcC;
+    data['interest'] = this.interest;
     data['Rlabel'] = this.rlabel;
     data['Rdescr'] = this.rdescr;
     data['Ilabel'] = this.ilabel;

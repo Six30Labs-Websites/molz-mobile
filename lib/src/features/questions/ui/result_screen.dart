@@ -129,56 +129,51 @@ class _ResultScreenState extends State<ResultScreen> {
                                           borderRadius:
                                               BorderRadius.circular(15),
                                         ),
-                                        child: const Align(
+                                        child: Align(
                                           alignment: Alignment.center,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'R',
-                                                style: TextStyle(
-                                                    color: whiteColor),
-                                              ),
-                                              Text(
-                                                'I',
-                                                style: TextStyle(
-                                                    color: whiteColor),
-                                              ),
-                                              Text(
-                                                'A',
-                                                style: TextStyle(
-                                                    color: whiteColor),
-                                              ),
-                                            ],
+                                            children: result!.interest!
+                                                .map((item) => Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 8.0),
+                                                      child: Text(
+                                                        item,
+                                                        style: TextStyle(
+                                                            color: whiteColor,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ))
+                                                .toList(),
                                           ),
                                         ),
                                       ),
                                     ),
                                     20.h.verticalSpace,
                                     Center(
-                                      child: Container(
-                                        width: 320.w,
-                                        child: Wrap(
-                                          children: [
-                                            Text(
-                                              'NOTE:',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 14.sp,
-                                                  color: blackColor,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            Text(
-                                              'The letters with the highest scores are your Interest Code.',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 14.sp,
-                                                  color: blackColor,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ],
-                                        ),
+                                      child: Wrap(
+                                        children: [
+                                          Text(
+                                            'NOTE:',
+                                            style: textStyleInter.copyWith(
+                                                fontSize: 14.sp,
+                                                color: blackColor,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          Text(
+                                            'The letters with the highest scores are your Interest Code.',
+                                            style: textStyleInter.copyWith(
+                                                fontSize: 14.sp,
+                                                color: blackColor,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                     20.h.verticalSpace,
@@ -212,397 +207,49 @@ class _ResultScreenState extends State<ResultScreen> {
                                       'Conventional',
                                       '${result?.hcC}',
                                     ),
+                                    20.h.verticalSpace,
+                                    CardView(
+                                        result: result,
+                                        description: '${result?.rdescr}',
+                                        expansionTitle: 'Realistic (R)',
+                                        grade: '${result?.rlabel}',
+                                        score: '${result?.hcR}'),
                                     10.h.verticalSpace,
-                                    Card(
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                            dividerColor: Colors.transparent),
-                                        child: ExpansionTile(
-                                          title: Text(
-                                            'Realistic (R)',
-                                            style: textStyleInter.copyWith(
-                                              fontSize: 16.sp,
-                                              color: blackColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          children: [
-                                            DetailText(
-                                                leadingText: 'Score:',
-                                                titleText: '${result?.hcR}'),
-                                            DetailText(
-                                                leadingText: 'Grade:',
-                                                titleText: '${result?.rlabel}'),
-                                            DetailText(
-                                                leadingText: 'Description:',
-                                                titleText: '${result?.rdescr}'),
-                                            InkWell(
-                                              onTap: () {
-                                                debug('More Details Tapped');
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ViewDetailR()),
-                                                );
-                                              },
-                                              child: Container(
-                                                height: 30.h,
-                                                width: 130.w,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF7288CA),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.r),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "View More Detail",
-                                                      style: textStyleInter
-                                                          .copyWith(
-                                                              color:
-                                                                  whiteColor),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            10.h.verticalSpace,
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                            dividerColor: Colors.transparent),
-                                        child: ExpansionTile(
-                                          title: Text(
-                                            'Investigative (I)',
-                                            style: textStyleInter.copyWith(
-                                              fontSize: 16.sp,
-                                              color: blackColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          children: [
-                                            DetailText(
-                                                leadingText: 'Score:',
-                                                titleText: '${result?.hcI}'),
-                                            DetailText(
-                                                leadingText: 'Grade:',
-                                                titleText: '${result?.ilabel}'),
-                                            DetailText(
-                                                leadingText: 'Description:',
-                                                titleText: '${result?.idescr}'),
-                                            InkWell(
-                                              onTap: () {
-                                                debug('More Details Tapped');
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ViewDetailI()),
-                                                );
-                                              },
-                                              child: Container(
-                                                height: 30.h,
-                                                width: 130.w,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF7288CA),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.r),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "View More Detail",
-                                                      style: textStyleInter
-                                                          .copyWith(
-                                                              color:
-                                                                  whiteColor),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            10.h.verticalSpace,
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                            dividerColor: Colors.transparent),
-                                        child: ExpansionTile(
-                                          title: Text(
-                                            'Artistic (A)',
-                                            style: textStyleInter.copyWith(
-                                              fontSize: 16.sp,
-                                              color: blackColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          children: [
-                                            DetailText(
-                                                leadingText: 'Score:',
-                                                titleText: '${result?.hcA}'),
-                                            DetailText(
-                                                leadingText: 'Grade:',
-                                                titleText: '${result?.alabel}'),
-                                            DetailText(
-                                                leadingText: 'Description:',
-                                                titleText: '${result?.adescr}'),
-                                            InkWell(
-                                              onTap: () {
-                                                debug('More Details Tapped');
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ViewDetailA()),
-                                                );
-                                              },
-                                              child: Container(
-                                                height: 30.h,
-                                                width: 130.w,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF7288CA),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.r),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "View More Detail",
-                                                      style: textStyleInter
-                                                          .copyWith(
-                                                              color:
-                                                                  whiteColor),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            10.h.verticalSpace,
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                            dividerColor: Colors.transparent),
-                                        child: ExpansionTile(
-                                          title: Text(
-                                            'Social (S)',
-                                            style: textStyleInter.copyWith(
-                                              fontSize: 16.sp,
-                                              color: blackColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          children: [
-                                            DetailText(
-                                                leadingText: 'Score:',
-                                                titleText: '${result?.hcS}'),
-                                            DetailText(
-                                                leadingText: 'Grade:',
-                                                titleText: '${result?.slabel}'),
-                                            DetailText(
-                                                leadingText: 'Description:',
-                                                titleText: '${result?.sdescr}'),
-                                            InkWell(
-                                              onTap: () {
-                                                debug('More Details Tapped');
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ViewDetailS()),
-                                                );
-                                              },
-                                              child: Container(
-                                                height: 30.h,
-                                                width: 130.w,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF7288CA),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.r),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "View More Detail",
-                                                      style: textStyleInter
-                                                          .copyWith(
-                                                              color:
-                                                                  whiteColor),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            10.h.verticalSpace,
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                            dividerColor: Colors.transparent),
-                                        child: ExpansionTile(
-                                          title: Text(
-                                            'Enterprising (E)',
-                                            style: textStyleInter.copyWith(
-                                              fontSize: 16.sp,
-                                              color: blackColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          children: [
-                                            DetailText(
-                                                leadingText: 'Score:',
-                                                titleText: '${result?.hcE}'),
-                                            DetailText(
-                                                leadingText: 'Grade:',
-                                                titleText: '${result?.elabel}'),
-                                            DetailText(
-                                                leadingText: 'Description:',
-                                                titleText: '${result?.edescr}'),
-                                            InkWell(
-                                              onTap: () {
-                                                debug('More Details Tapped');
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ViewDetailE()),
-                                                );
-                                              },
-                                              child: Container(
-                                                height: 30.h,
-                                                width: 130.w,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF7288CA),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.r),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "View More Detail",
-                                                      style: textStyleInter
-                                                          .copyWith(
-                                                              color:
-                                                                  whiteColor),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            10.h.verticalSpace,
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                            dividerColor: Colors.transparent),
-                                        child: ExpansionTile(
-                                          title: Text(
-                                            'Conventional (C)',
-                                            style: textStyleInter.copyWith(
-                                              fontSize: 16.sp,
-                                              color: blackColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          children: [
-                                            DetailText(
-                                                leadingText: 'Score:',
-                                                titleText: '${result?.hcC}'),
-                                            DetailText(
-                                                leadingText: 'Grade:',
-                                                titleText: '${result?.clabel}'),
-                                            DetailText(
-                                                leadingText: 'Description:',
-                                                titleText: '${result?.cdescr}'),
-                                            InkWell(
-                                              onTap: () {
-                                                debug('More Details Tapped');
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ViewDetailC()),
-                                                );
-                                              },
-                                              child: Container(
-                                                height: 30.h,
-                                                width: 130.w,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF7288CA),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.r),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "View More Detail",
-                                                      style: textStyleInter
-                                                          .copyWith(
-                                                              color:
-                                                                  whiteColor),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            10.h.verticalSpace,
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    CardView(
+                                        result: result,
+                                        description: '${result?.idescr}',
+                                        expansionTitle: 'Investigative (I)',
+                                        grade: '${result?.ilabel}',
+                                        score: '${result?.hcI}'),
+                                    10.h.verticalSpace,
+                                    CardView(
+                                        result: result,
+                                        description: '${result?.adescr}',
+                                        expansionTitle: 'Artistic (A)',
+                                        grade: '${result?.alabel}',
+                                        score: '${result?.hcA}'),
+                                    10.h.verticalSpace,
+                                    CardView(
+                                        result: result,
+                                        description: '${result?.sdescr}',
+                                        expansionTitle: 'Social (S)',
+                                        grade: '${result?.slabel}',
+                                        score: '${result?.hcS}'),
+                                    10.h.verticalSpace,
+                                    CardView(
+                                        result: result,
+                                        description: '${result?.edescr}',
+                                        expansionTitle: 'Enterprising (E)',
+                                        grade: '${result?.elabel}',
+                                        score: '${result?.hcE}'),
+                                    10.h.verticalSpace,
+                                    CardView(
+                                        result: result,
+                                        description: '${result?.cdescr}',
+                                        expansionTitle: 'Conventional (C)',
+                                        grade: '${result?.clabel}',
+                                        score: '${result?.hcC}'),
+                                    10.h.verticalSpace,
                                   ],
                                 ),
                               ),
@@ -786,7 +433,8 @@ class DetailText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      child: Row(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -796,18 +444,90 @@ class DetailText extends StatelessWidget {
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w600),
           ),
-          SizedBox(width: 20),
-          Expanded(
-            child: Text(
-              titleText ?? '',
-              style: textStyleInter.copyWith(
-                  fontSize: 16.sp,
-                  color: blackColor,
-                  fontWeight: FontWeight.w400),
-              softWrap: true,
-            ),
+          Text(
+            titleText ?? '',
+            style: textStyleInter.copyWith(
+                fontSize: 16.sp,
+                color: blackColor,
+                fontWeight: FontWeight.w400),
+            softWrap: true,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CardView extends StatelessWidget {
+  final ResultModel? resultModel;
+  final String expansionTitle;
+  final String score;
+  final String description;
+  final String grade;
+  CardView(
+      {required this.expansionTitle,
+      required this.score,
+      required this.description,
+      required this.grade,
+      ResultModel? result,
+      this.resultModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          title: Text(
+            expansionTitle,
+            style: textStyleInter.copyWith(
+              fontSize: 16.sp,
+              color: blackColor,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DetailText(leadingText: 'Score:', titleText: score),
+                DetailText(leadingText: 'Grade:', titleText: grade),
+                DetailText(leadingText: 'Description:', titleText: description),
+                InkWell(
+                  onTap: () {
+                    debug('More Details Tapped');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ViewDetailR()),
+                    );
+                  },
+                  child: Center(
+                    child: Container(
+                      height: 30.h,
+                      width: 130.w,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF7288CA),
+                        borderRadius: BorderRadius.circular(5.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "View More Detail",
+                            style: textStyleInter.copyWith(color: whiteColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                10.h.verticalSpace,
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
