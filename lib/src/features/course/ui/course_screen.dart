@@ -25,22 +25,59 @@ class _CourseScreenState extends State<CourseScreen> {
     debug('Course ID is\n ${{
       "courseID": widget.item.id,
     }}');
-    ApiCall.get('${Urls.getCourseDetail}/${widget.item.id}',
-        success: (success) {
-      debug(success.toString());
+    ApiCall.get(
+      '${Urls.getCourseDetail}/${widget.item.id}',
+      success: (success) {
+        debug(success.toString());
 
-      try {
+        try {
+          setState(() {
+            courseDetails = CourseDetailData.fromJson(jsonDecode(success));
+            _courseListDataStatus = Status.successful;
+          });
+          debug('courseDetails: ${courseDetails!.data!.name!}');
+        } catch (e) {
+          error(e.toString());
+          showToastError("Something went wrong !!");
+          setState(() {
+            _courseListDataStatus = Status.error;
+          });
+        }
+      },
+      failure: (fail) {
+        debug("_getCourseDetailsApiCall fail$fail");
+        try {
+          if (fail.toString() == 'token_not_valid') {
+            navigateRemoveAll(context, LogInScreen());
+          } else if (fail.toString() == 'No Internet') {
+            showToastError('No Internet !!');
+            setState(() {
+              _courseListDataStatus = Status.networkError;
+            });
+          } else {
+            CourseDetailData courseDetails =
+                CourseDetailData.fromJson(jsonDecode(fail));
+
+            setState(() {
+              _courseListDataStatus = Status.error;
+            });
+          }
+        } catch (e) {
+          error(e.toString());
+          showToastError("Something went Wrong !!");
+          setState(() {
+            _courseListDataStatus = Status.error;
+          });
+        }
+      },
+      error400: (e4) {
+        debug("getEventsListApiCall e4");
+        showToastError("error 400 !!");
         setState(() {
-          courseDetails = CourseDetailData.fromJson(jsonDecode(success));
-          _courseListDataStatus = Status.successful;
+          _courseListDataStatus = Status.error;
         });
-        debug('courseDetails: ${courseDetails!.data!.name!}');
-      } catch (e) {
-        error(e.toString());
-        showToastError("Something went wrong !!");
-        _courseListDataStatus = Status.error;
-      }
-    });
+      },
+    );
   }
 
   @override

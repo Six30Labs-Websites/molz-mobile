@@ -1,13 +1,12 @@
-name: project_molz
+name: molz
 description: A new Flutter project.
 
-
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.6 <4.0.0'
+  sdk: ">=3.0.6 <4.0.0"
 
 dependencies:
   flutter:
@@ -26,15 +25,18 @@ dependencies:
   carousel_slider: ^4.2.1
   auto_size_text: ^3.0.0
   url_launcher: ^6.2.6
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logos/launch_icon.png"
   flutter_lints: ^2.0.0
 
 flutter:
-
   uses-material-design: true
   assets:
     - assets/images/
@@ -76,32 +78,3 @@ flutter:
         - asset: assets/fonts/Franie/Franie-SemiBoldItalic.ttf
         - asset: assets/fonts/Franie/Franie-SemiLight.ttf
         - asset: assets/fonts/Franie/Franie-SemiLightItalic.ttf
-
-
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  

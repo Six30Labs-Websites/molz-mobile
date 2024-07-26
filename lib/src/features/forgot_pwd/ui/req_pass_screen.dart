@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:project_molz/src/commons/ui/secondary_button.dart';
-import 'package:project_molz/src/features/forgot_pwd/ui/set_pass_screen.dart';
-import 'package:project_molz/src/services/api_services.dart';
-import 'package:project_molz/src/services/urls.dart';
-import 'package:project_molz/src/utils/custom_colors.dart';
-import 'package:project_molz/src/utils/custom_heights.dart';
-import 'package:project_molz/src/utils/custom_navigation.dart';
-import 'package:project_molz/src/utils/custom_text_styles.dart';
-import 'package:project_molz/src/utils/custom_toasts.dart';
-import 'package:project_molz/src/utils/logger.dart';
+import 'package:molz/src/commons/ui/secondary_button.dart';
+import 'package:molz/src/features/forgot_pwd/ui/set_pass_screen.dart';
+import 'package:molz/src/services/api_services.dart';
+import 'package:molz/src/services/urls.dart';
+import 'package:molz/src/utils/custom_colors.dart';
+import 'package:molz/src/utils/custom_heights.dart';
+import 'package:molz/src/utils/custom_navigation.dart';
+import 'package:molz/src/utils/custom_text_styles.dart';
+import 'package:molz/src/utils/custom_toasts.dart';
+import 'package:molz/src/utils/logger.dart';
 
 import '../../../commons/ui/primary_button.dart';
 import '../../home/ui/home_imports.dart';

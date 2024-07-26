@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:project_molz/src/utils/custom_colors.dart';
-import 'package:project_molz/src/utils/custom_text_styles.dart';
+import 'package:molz/src/utils/custom_colors.dart';
+import 'package:molz/src/utils/custom_text_styles.dart';
 
 class ViewDetailE extends StatelessWidget {
   const ViewDetailE({super.key});

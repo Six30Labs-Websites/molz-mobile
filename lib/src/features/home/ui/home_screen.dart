@@ -265,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           : _fetchUserDataStatus == Status.successful
                               ? Flexible(
                                   child: Text(
-                                    "Welcome ${getUserListData?.data?.username ?? ''}",
+                                    "Welcome ${getUserListData?.data?.fullName ?? ''}",
                                     style: textStyleInter.copyWith(
                                       color: option1Color,
                                       fontSize: 20.sp,

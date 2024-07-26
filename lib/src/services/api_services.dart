@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:project_molz/src/local_storage/auth_tokens_prefs/shared_prefs.dart';
-import 'package:project_molz/src/utils/custom_toasts.dart';
-import 'package:project_molz/src/utils/logger.dart';
+import 'package:molz/src/local_storage/auth_tokens_prefs/shared_prefs.dart';
+import 'package:molz/src/utils/custom_toasts.dart';
+import 'package:molz/src/utils/logger.dart';
 
 /// TODO: Commented 3 times "(userToken = await AccountManager.getToken();)"
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:project_molz/src/custom_themes/theme.dart';
-import 'package:project_molz/src/features/splash/ui/splash_imports.dart';
+import 'package:molz/src/custom_themes/theme.dart';
+import 'package:molz/src/features/splash/ui/splash_imports.dart';
 
 import 'src/local_storage/auth_tokens_prefs/shared_prefs.dart';
 

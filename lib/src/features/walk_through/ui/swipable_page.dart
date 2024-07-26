@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:project_molz/src/utils/custom_heights.dart';
-import 'package:project_molz/src/utils/custom_text_styles.dart';
+import 'package:molz/src/utils/custom_heights.dart';
+import 'package:molz/src/utils/custom_text_styles.dart';
 
 class WalkThroughPage extends StatelessWidget {
   const WalkThroughPage(

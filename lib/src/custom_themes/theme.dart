@@ -1,6 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project_molz/src/utils/custom_colors.dart';
-import 'package:project_molz/src/utils/custom_text_styles.dart';
+import 'package:molz/src/utils/custom_colors.dart';
+import 'package:molz/src/utils/custom_text_styles.dart';
 import 'package:flutter/material.dart';
 
 // This is our  main focus
@@ -21,9 +21,7 @@ ThemeData lightThemeData(BuildContext context) {
       secondary: option3Color,
       error: redColor,
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-
-    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
       selectedItemColor: option1Color.withOpacity(0.7),
@@ -44,7 +42,7 @@ ThemeData darkThemeData(BuildContext context) {
     appBarTheme: appBarTheme,
     iconTheme: const IconThemeData(color: option3Color),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: option3Color,fontFamily: fontInter),
+        .apply(bodyColor: option3Color, fontFamily: fontInter),
     colorScheme: const ColorScheme.dark().copyWith(
       primary: option1Color,
       secondary: option2Color,

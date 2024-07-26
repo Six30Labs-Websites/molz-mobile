@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
-import 'package:project_molz/src/features/login/data/models/login_with_email_model.dart';
+import 'package:molz/src/features/login/data/models/login_with_email_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountManager {

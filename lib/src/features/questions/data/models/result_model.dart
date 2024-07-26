@@ -47,7 +47,8 @@ class ResultModel {
     hcS = json['hcS'];
     hcE = json['hcE'];
     hcC = json['hcC'];
-    interest = json['interest'].cast<String>();
+    interest =
+        json['interest'] != null ? List<String>.from(json['interest']) : null;
     rlabel = json['Rlabel'];
     rdescr = json['Rdescr'];
     ilabel = json['Ilabel'];
