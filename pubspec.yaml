@@ -36,6 +36,11 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/logos/launch_icon.png"
   flutter_lints: ^2.0.0
+flutter_native_splash:
+  color: "#ffffff" # Background color
+  image: "assets/png/Splash_white.png" # Path to your splash screen image
+  android: true
+  ios: true
 
 flutter:
   uses-material-design: true
