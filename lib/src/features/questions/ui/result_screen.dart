@@ -395,7 +395,7 @@ class _ResultScreenState extends State<ResultScreen> {
 
 Widget buildRow(String letter, String title, String score) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 4),
+    padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 4),
     child: Row(
       children: [
         Text(
@@ -490,7 +490,13 @@ class CardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        //data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        data: ThemeData(
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          dividerColor: Colors.transparent,
+        ),
         child: ExpansionTile(
           title: Text(
             expansionTitle,
@@ -516,6 +522,8 @@ class CardView extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => navigatePage),
                     );
                   },
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                   child: Center(
                     child: Container(
                       height: 30.h,

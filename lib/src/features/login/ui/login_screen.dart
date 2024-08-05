@@ -146,10 +146,10 @@ class _LogInScreenState extends State<LogInScreen> {
       debug("Light Mode");
     }
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Padding(
           padding: customPadding(left: 20, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -238,6 +238,9 @@ class _LogInScreenState extends State<LogInScreen> {
                     "Don’t have an account?",
                     style: textStyleFranie.copyWith(
                         fontSize: 12.sp, color: option4Color),
+                  ),
+                  SizedBox(
+                    width: 10,
                   ),
                   InkWell(
                     onTap: () {

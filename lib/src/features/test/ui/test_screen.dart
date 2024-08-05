@@ -105,42 +105,24 @@ class _TestScreenState extends State<TestScreen> {
                       )
                     : _testDetailDataStatus == Status.successful
                         ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               15.h.verticalSpace,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        "${testDetail?.data?.name ?? ''}",
-                                        style: textStyleInter.copyWith(
-                                            fontSize: 22.sp,
-                                            color: option1Color,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                "${testDetail?.data?.name ?? ''}",
+                                style: textStyleInter.copyWith(
+                                    fontSize: 18.sp,
+                                    color: option1Color,
+                                    fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
                               ),
                               15.h.verticalSpace,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  // Image.asset("assets/png/Star Filled.png",
-                                  //     width: 18.w, height: 14.h),
-                                  Text(
-                                    'Questions Count: ${testDetail?.data?.questionsCount ?? ''}',
-                                    style: textStyleInter.copyWith(
-                                        fontSize: 12.sp,
-                                        color: option1Color,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
+                              Text(
+                                'Questions Count: ${testDetail?.data?.questionsCount ?? ''}',
+                                style: textStyleInter.copyWith(
+                                    fontSize: 12.sp,
+                                    color: option1Color,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
                               ),
                               20.h.verticalSpace,
                               Text(
@@ -149,6 +131,7 @@ class _TestScreenState extends State<TestScreen> {
                                     fontSize: 16.sp,
                                     color: option1Color,
                                     fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
                               ),
                               Expanded(
                                 child: Align(

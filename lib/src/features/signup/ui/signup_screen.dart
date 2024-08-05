@@ -17,10 +17,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _gradeController = TextEditingController();
   TextEditingController _provinceController = TextEditingController();
   TextEditingController _schoolController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  bool _isBackButtonVisible = true;
 
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.offset > 0 && _isBackButtonVisible) {
+        setState(() {
+          _isBackButtonVisible = false;
+        });
+      } else if (_scrollController.offset <= 0 && !_isBackButtonVisible) {
+        setState(() {
+          _isBackButtonVisible = true;
+        });
+      }
+    });
   }
 
   _molzSignUpApiCall() {
@@ -97,6 +110,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var brightness = SchedulerBinding.instance.window.platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
@@ -107,139 +126,118 @@ class _SignUpScreenState extends State<SignUpScreen> {
       debug("Light Mode");
     }
 
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: customPadding(left: 20, right: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                //customHeightSizedBox(mediaQCustomHeight(context, height: 0.10)),
-                SizedBox(
-                  height: 40.h,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: _scrollController,
+              child: Padding(
+                padding: customPadding(left: 20, right: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 40.h),
+                    SizedBox(
+                      height: 50.h,
+                      width: 160.w,
+                      child: Image.asset("assets/logos/Asset11.png"),
+                    ),
+                    sizeHeight20,
+                    CustomTextFormField(
+                      headerName: "FullName",
+                      hintText: "Enter your FullName",
+                      prefixIcon: null,
+                      postfixIcon: null,
+                      controller: _fullNameController,
+                      focusNode: null,
+                    ),
+                    customHeightSizedBox(15),
+                    CustomTextFormField(
+                      headerName: "E-mail",
+                      hintText: "Enter your email address",
+                      prefixIcon: null,
+                      postfixIcon: null,
+                      controller: _emailController,
+                      focusNode: null,
+                    ),
+                    customHeightSizedBox(15),
+                    CustomPwdFormField(
+                      headerName: "Password",
+                      hintText: "Enter your Password",
+                      prefixIcon: 'assets/svg/lock.svg',
+                      postfixIcon: "assets/svg/eye-off.svg",
+                      controller: _passController,
+                      focusNode: null,
+                    ),
+                    customHeightSizedBox(15),
+                    CustomPwdFormField(
+                      headerName: "Confirm Password",
+                      hintText: "Re-enter your Password",
+                      prefixIcon: 'assets/svg/lock.svg',
+                      postfixIcon: "assets/svg/eye-off.svg",
+                      controller: _confPassController,
+                      focusNode: null,
+                    ),
+                    customHeightSizedBox(15),
+                    CustomTextFormField(
+                      headerName: "Grade",
+                      hintText: "Enter your Grade",
+                      prefixIcon: null,
+                      postfixIcon: null,
+                      controller: _gradeController,
+                      focusNode: null,
+                    ),
+                    customHeightSizedBox(15),
+                    CustomTextFormField(
+                      headerName: "School",
+                      hintText: "Enter your School",
+                      prefixIcon: null,
+                      postfixIcon: null,
+                      controller: _schoolController,
+                      focusNode: null,
+                    ),
+                    customHeightSizedBox(15),
+                    CustomTextFormField(
+                      headerName: "Province",
+                      hintText: "Enter your Province",
+                      prefixIcon: null,
+                      postfixIcon: null,
+                      controller: _provinceController,
+                      focusNode: null,
+                    ),
+                    customHeightSizedBox(30),
+                    PrimaryButton(
+                      text: "SignUp",
+                      press: () {
+                        _molzSignUpApiCall();
+                      },
+                      btnWidth: mediaQCustomWidth(context, width: 0.55),
+                    ),
+                    customHeightSizedBox(15),
+                  ],
                 ),
-                SizedBox(
-                    height: 59.h,
-                    width: 194.w,
-                    child: Image.asset(
-                      "assets/logos/Asset11.png",
-                    )),
-                sizeHeight20,
-                // CustomTextFormField(
-                //   headerName: "UserName",
-                //   hintText: "Enter your UserName",
-                //   prefixIcon: null,
-                //   postfixIcon: null,
-                //   controller: _userNameController,
-                //   focusNode: null,
-                // ),
-                // customHeightSizedBox(15),
-                CustomTextFormField(
-                  headerName: "FullName",
-                  hintText: "Enter your FullName",
-                  prefixIcon: null,
-                  postfixIcon: null,
-                  controller: _fullNameController,
-                  focusNode: null,
-                ),
-                customHeightSizedBox(15),
-                CustomTextFormField(
-                  headerName: "E-mail",
-                  hintText: "Enter your email address",
-                  prefixIcon: null,
-                  postfixIcon: null,
-                  controller: _emailController,
-                  focusNode: null,
-                ),
-                customHeightSizedBox(15),
-                // CustomTextFormField(
-                //   headerName: "Confirm E-mail",
-                //   hintText: "Re-enter your email address",
-                //   prefixIcon: null,
-                //   postfixIcon: null,
-                //   controller: _confEmailController,
-                //   focusNode: null,
-                // ),
-                // customHeightSizedBox(15),
-                CustomPwdFormField(
-                  headerName: "Password",
-                  hintText: "Enter your Password",
-                  prefixIcon: 'assets/svg/lock.svg',
-                  postfixIcon: "assets/svg/eye-off.svg",
-                  controller: _passController,
-                  focusNode: null,
-                ),
-                customHeightSizedBox(15),
-                CustomPwdFormField(
-                  headerName: "Confirm Password",
-                  hintText: "Re-enter your Password",
-                  prefixIcon: 'assets/svg/lock.svg',
-                  postfixIcon: "assets/svg/eye-off.svg",
-                  controller: _confPassController,
-                  focusNode: null,
-                ),
-                customHeightSizedBox(15),
-                CustomTextFormField(
-                  headerName: "Grade",
-                  hintText: "Enter your Grade",
-                  prefixIcon: null,
-                  postfixIcon: null,
-                  controller: _gradeController,
-                  focusNode: null,
-                ),
-                customHeightSizedBox(15),
-                CustomTextFormField(
-                  headerName: "School",
-                  hintText: "Enter your School",
-                  prefixIcon: null,
-                  postfixIcon: null,
-                  controller: _schoolController,
-                  focusNode: null,
-                ),
-                customHeightSizedBox(15),
-                CustomTextFormField(
-                  headerName: "Province",
-                  hintText: "Enter your Province",
-                  prefixIcon: null,
-                  postfixIcon: null,
-                  controller: _provinceController,
-                  focusNode: null,
-                ),
-                customHeightSizedBox(30),
-
-                PrimaryButton(
-                    text: "SignUp",
-                    press: () {
-                      _molzSignUpApiCall();
-                    },
-                    btnWidth: mediaQCustomWidth(context, width: 0.55)),
-                // customHeightSizedBox(mediaQCustomHeight(context, height: 0.2)),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       "Don’t have an account?",
-                //       style: textStyleFranie.copyWith(
-                //           fontSize: 12, color: option4Color),
-                //     ),
-                //     Text(
-                //       "SignUp",
-                //       style: textStyleFranie.copyWith(
-                //           color: option2Color,
-                //           fontSize: 12,
-                //           fontWeight: FontWeight.w600,
-                //           decoration: TextDecoration.underline),
-                //     )
-                //   ],
-                // ),
-                // customHeightSizedBox(mediaQCustomHeight(context, height: 0.1)),
-                customHeightSizedBox(15),
-              ],
+              ),
             ),
-          ),
+            Positioned(
+              top: 10.h,
+              left: 10.w,
+              child: Visibility(
+                visible: _isBackButtonVisible,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: SvgPicture.asset(
+                    "assets/svg/back.svg",
+                    width: 35.w,
+                    height: 20.h,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

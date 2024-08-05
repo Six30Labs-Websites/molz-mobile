@@ -9,6 +9,7 @@ class WalkThroughScreen extends StatefulWidget {
 
 class _WalkThroughScreenState extends State<WalkThroughScreen> {
   final PageController _pageController = PageController();
+  int currentIndex = 0;
 
   @override
   void initState() {
@@ -54,8 +55,6 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
     ),
   ];
 
-  int currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,26 +72,12 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
               children: listItems,
             ),
             Positioned(
-              top: 700.h,
+              bottom: 20.h,
               child: SizedBox(
-                width: mediaQWidth(context),
-                child: Center(
-                  child: PrimaryButton(
-                      text: "Login",
-                      press: () {
-                        //navigateCupertino(context, const HomeTabsScreen());
-                        navigateRemoveAll(context, const LogInScreen());
-                      },
-                      btnWidth: mediaQCustomWidth(context, width: 0.35)),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 650.h,
-              child: SizedBox(
-                width: mediaQWidth(context),
-                child: Center(
-                  child: SmoothPageIndicator(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Column(
+                  children: [
+                    SmoothPageIndicator(
                       controller: _pageController,
                       count: listItems.length,
                       effect: WormEffect(
@@ -101,7 +86,21 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                         dotHeight: 10.h,
                         dotWidth: 10.w,
                       ),
-                      onDotClicked: (index) {}),
+                      onDotClicked: (index) {
+                        _pageController.animateToPage(index,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeIn);
+                      },
+                    ),
+                    20.h.verticalSpace,
+                    PrimaryButton(
+                      text: "Login",
+                      press: () {
+                        navigateRemoveAll(context, const LogInScreen());
+                      },
+                      btnWidth: MediaQuery.of(context).size.width * 0.35,
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -13,14 +13,14 @@ import 'package:molz/src/utils/custom_text_styles.dart';
 import 'package:molz/src/utils/custom_toasts.dart';
 import 'package:molz/src/utils/logger.dart';
 
-class SearchTest extends StatefulWidget {
-  const SearchTest({super.key});
+class ViewAllTests extends StatefulWidget {
+  const ViewAllTests({super.key});
 
   @override
-  State<SearchTest> createState() => _SearchTestState();
+  State<ViewAllTests> createState() => _ViewAllTestsState();
 }
 
-class _SearchTestState extends State<SearchTest> {
+class _ViewAllTestsState extends State<ViewAllTests> {
   @override
   void initState() {
     super.initState();
@@ -31,23 +31,6 @@ class _SearchTestState extends State<SearchTest> {
   List<TestData>? testData = [];
   List<TestData>? apiTestData = [];
 
-  runFilter(String enteredKeyword) {
-    print("enteredKeyword = $enteredKeyword");
-    List<TestData> results = [];
-    if (enteredKeyword.isEmpty) {
-      results = apiTestData!;
-    } else {
-      results = apiTestData!
-          .where((user) =>
-              user.name!.toLowerCase().contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
-    print("results = ${results.length}");
-    setState(() {
-      testData = results;
-    });
-  }
-
   fetchTestList() async {
     ApiCall.get(Urls.getTestList, success: (success) async {
       debug(success);
@@ -57,10 +40,6 @@ class _SearchTestState extends State<SearchTest> {
         setState(() {
           testData = apiTestData;
         });
-        //courseData = getCourseListData.data!;
-        // await AccountManager.setUserData(LogInWithEmailModelData);
-        // await AccountManager.setToken(
-        //     LogInWithEmailModelData.data!.accessToken!);
       } catch (e) {
         error(e.toString());
         showToastError("Something went wrong !!");
@@ -75,28 +54,6 @@ class _SearchTestState extends State<SearchTest> {
       appBar: AppBar(),
       body: CustomScrollView(
         slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  TextField(
-                    controller: _searchController,
-                    onChanged: (value) {
-                      runFilter(value);
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search for a test',
-                      prefixIcon: Icon(Icons.search),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                ],
-              ),
-            ),
-          ),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             sliver: SliverGrid(

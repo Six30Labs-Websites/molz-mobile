@@ -12,7 +12,7 @@ class ViewDetailI extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,7 +21,7 @@ class ViewDetailI extends StatelessWidget {
             Text(
               'I = Investigative',
               style: textStyleInter.copyWith(
-                  fontSize: 16.sp,
+                  fontSize: 17.sp,
                   color: blackColor,
                   fontWeight: FontWeight.w700),
             ),
@@ -151,7 +151,7 @@ class ViewDetailI extends StatelessWidget {
               style: textStyleInter.copyWith(
                   fontSize: 16.sp,
                   color: blackColor,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w600),
             ),
             5.h.verticalSpace,
             Row(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:molz/src/commons/ui/primary_button.dart';
 import 'package:molz/src/features/forgot_pwd/ui/req_pass_screen.dart';
 import 'package:molz/src/features/home/ui/home_imports.dart';
