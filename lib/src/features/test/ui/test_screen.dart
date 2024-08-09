@@ -46,7 +46,10 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
+      backgroundColor: whiteColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         actions: [
@@ -71,9 +74,9 @@ class _TestScreenState extends State<TestScreen> {
                 ),
                 Text("Details",
                     style: textStyleInter.copyWith(
-                        color: option1Color,
                         fontWeight: FontWeight.w600,
-                        fontSize: 20.sp)),
+                        fontSize: 20.sp,
+                        color: blackColor)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,101 +94,89 @@ class _TestScreenState extends State<TestScreen> {
           )
         ],
       ),
-      body: SafeArea(
-        child: Scaffold(
-          body: Container(
-            padding: EdgeInsets.only(left: 25.0.w, right: 25.0.w, top: 20.h),
-            child: _testDetailDataStatus == Status.loading
-                ? const CustomLoader2(
-                    color: itemColor,
+      body: Container(
+        padding: EdgeInsets.only(left: 25.0.w, right: 25.0.w, top: 20.h),
+        child: _testDetailDataStatus == Status.loading
+            ? const CustomLoader2(
+                color: itemColor,
+              )
+            : _testDetailDataStatus == Status.error
+                ? Center(
+                    child: Text('Test Detail Not Found'),
                   )
-                : _testDetailDataStatus == Status.error
-                    ? Center(
-                        child: Text('Test Detail Not Found'),
+                : _testDetailDataStatus == Status.successful
+                    ? Column(
+                        children: [
+                          15.h.verticalSpace,
+                          Text(
+                            "${testDetail?.data?.name ?? ''}",
+                            style: textStyleInter.copyWith(
+                                fontSize: 18.sp, fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                          ),
+                          15.h.verticalSpace,
+                          Text(
+                            'Questions Count: ${testDetail?.data?.questionsCount ?? ''}',
+                            style: textStyleInter.copyWith(
+                                fontSize: 12.sp, fontWeight: FontWeight.w500),
+                            textAlign: TextAlign.center,
+                          ),
+                          20.h.verticalSpace,
+                          Text(
+                            '${testDetail?.data?.description ?? ''}',
+                            style: textStyleInter.copyWith(
+                                fontSize: 16.sp, fontWeight: FontWeight.w500),
+                            textAlign: TextAlign.center,
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment: FractionalOffset.bottomCenter,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (testDetail?.data?.testTaken != 0)
+                                    Text(
+                                      'You Have Already Attended this Test!',
+                                      style: textStyleInter.copyWith(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  SizedBox(height: 20.h),
+                                  PrimaryButton(
+                                      btnWidth: 150.w,
+                                      text: testDetail?.data?.testTaken == 0
+                                          ? 'Start Test'
+                                          : 'View Results',
+                                      press: () {
+                                        if (testDetail?.data?.testTaken == 0) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  QuestionsScreen(
+                                                      item: testDetail),
+                                            ),
+                                          );
+                                        } else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ResultScreen(
+                                                      item: testDetail),
+                                            ),
+                                          );
+                                        }
+                                      }),
+                                  SizedBox(height: 20.h),
+                                ],
+                              ),
+                            ),
+                          ),
+                          20.h.verticalSpace,
+                        ],
                       )
-                    : _testDetailDataStatus == Status.successful
-                        ? Column(
-                            children: [
-                              15.h.verticalSpace,
-                              Text(
-                                "${testDetail?.data?.name ?? ''}",
-                                style: textStyleInter.copyWith(
-                                    fontSize: 18.sp,
-                                    color: option1Color,
-                                    fontWeight: FontWeight.w600),
-                                textAlign: TextAlign.center,
-                              ),
-                              15.h.verticalSpace,
-                              Text(
-                                'Questions Count: ${testDetail?.data?.questionsCount ?? ''}',
-                                style: textStyleInter.copyWith(
-                                    fontSize: 12.sp,
-                                    color: option1Color,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ),
-                              20.h.verticalSpace,
-                              Text(
-                                '${testDetail?.data?.description ?? ''}',
-                                style: textStyleInter.copyWith(
-                                    fontSize: 16.sp,
-                                    color: option1Color,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: FractionalOffset.bottomCenter,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      if (testDetail?.data?.testTaken != 0)
-                                        Text(
-                                          'You Have Already Attended this Test!',
-                                          style: textStyleInter.copyWith(
-                                              fontSize: 12.sp,
-                                              color: option1Color,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      SizedBox(height: 20.h),
-                                      PrimaryButton(
-                                          btnWidth: 150.w,
-                                          text: testDetail?.data?.testTaken == 0
-                                              ? 'Start Test'
-                                              : 'View Results',
-                                          press: () {
-                                            if (testDetail?.data?.testTaken ==
-                                                0) {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      QuestionsScreen(
-                                                          item: testDetail),
-                                                ),
-                                              );
-                                            } else {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ResultScreen(
-                                                          item: testDetail),
-                                                ),
-                                              );
-                                            }
-                                          }),
-                                      SizedBox(height: 20.h),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              20.h.verticalSpace,
-                            ],
-                          )
-                        : SizedBox(),
-          ),
-        ),
+                    : SizedBox(),
       ),
     );
   }

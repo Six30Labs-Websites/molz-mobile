@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:molz/src/commons/ui/primary_button_dark.dart';
 import 'package:molz/src/features/forgot_pwd/data/models/set_pass_model.dart';
 import 'package:molz/src/features/login/ui/login_imports.dart';
 import 'package:molz/src/services/api_services.dart';
@@ -99,20 +101,30 @@ class _SetPwdScreenState extends State<SetPwdScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Please Enter your email address:',
-                style: textStyleFranie.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                    color: blackColor)),
+            isDarkMode
+                ? Text('Please Enter your email address:',
+                    style: textStyleFranie.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                        color: whiteColor))
+                : Text('Please Enter your email address:',
+                    style: textStyleFranie.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                    )),
             sizeHeight10,
             SizedBox(
               height: 55.h,
@@ -120,6 +132,8 @@ class _SetPwdScreenState extends State<SetPwdScreen> {
                   controller: _emailController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         borderSide: const BorderSide(
@@ -138,11 +152,17 @@ class _SetPwdScreenState extends State<SetPwdScreen> {
                       hintText: 'Enter your email address')),
             ),
             sizeHeight20,
-            Text('Update your Password',
-                style: textStyleFranie.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                    color: blackColor)),
+            isDarkMode
+                ? Text('Update your Password:',
+                    style: textStyleFranie.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                        color: whiteColor))
+                : Text('Update your Password:',
+                    style: textStyleFranie.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                    )),
             sizeHeight10,
             SizedBox(
               height: 55.h,
@@ -151,6 +171,8 @@ class _SetPwdScreenState extends State<SetPwdScreen> {
                 keyboardType: TextInputType.text,
                 obscureText: !_passwordVisible,
                 decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
                   // fillColor: kPrimaryColor,
                   // prefixIcon: SizedBox(
                   //   // height: 16.h,
@@ -182,6 +204,7 @@ class _SetPwdScreenState extends State<SetPwdScreen> {
                       //   )
                       // : const SizedBox(),
                       ? IconButton(
+                          color: option4Color,
                           onPressed: () {
                             setState(() {
                               _passwordVisible = !_passwordVisible;
@@ -214,11 +237,17 @@ class _SetPwdScreenState extends State<SetPwdScreen> {
               ),
             ),
             sizeHeight20,
-            Text('Please Enter your One Time Password:',
-                style: textStyleFranie.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                    color: blackColor)),
+            isDarkMode
+                ? Text('Please Enter your One Time Password:',
+                    style: textStyleFranie.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                        color: whiteColor))
+                : Text('Please Enter your One Time Password:',
+                    style: textStyleFranie.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                    )),
             sizeHeight10,
             SizedBox(
               height: 55.h,
@@ -226,17 +255,19 @@ class _SetPwdScreenState extends State<SetPwdScreen> {
                   controller: _otpController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         borderSide: const BorderSide(
-                          color: option1Color,
-                        ),
+                            // color: option1Color,
+                            ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         borderSide: const BorderSide(
-                          color: option1Color,
-                        ),
+                            // color: option1Color,
+                            ),
                       ),
                       hintStyle: textStyleFranie.copyWith(
                         fontSize: 10,
@@ -247,12 +278,19 @@ class _SetPwdScreenState extends State<SetPwdScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                PrimaryButton(
-                    press: () {
-                      _setPwdApiCall();
-                    },
-                    text: 'Update',
-                    btnWidth: mediaQCustomWidth(context, width: 0.20)),
+                isDarkMode
+                    ? PrimaryDarkButton(
+                        press: () {
+                          _setPwdApiCall();
+                        },
+                        text: 'Update',
+                        btnWidth: mediaQCustomWidth(context, width: 0.20))
+                    : PrimaryButton(
+                        press: () {
+                          _setPwdApiCall();
+                        },
+                        text: 'Update',
+                        btnWidth: mediaQCustomWidth(context, width: 0.20)),
               ],
             ),
           ],

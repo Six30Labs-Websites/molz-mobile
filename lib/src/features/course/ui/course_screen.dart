@@ -83,6 +83,7 @@ class _CourseScreenState extends State<CourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         actions: [
@@ -127,175 +128,168 @@ class _CourseScreenState extends State<CourseScreen> {
           )
         ],
       ),
-      body: SafeArea(
-        child: Scaffold(
-          body: _courseListDataStatus == Status.loading
-              ? const CustomLoader2(
-                  color: itemColor,
+      body: _courseListDataStatus == Status.loading
+          ? const CustomLoader2(
+              color: itemColor,
+            )
+          : _courseListDataStatus == Status.error
+              ? Center(
+                  child: Text('Courses Not Found'),
                 )
-              : _courseListDataStatus == Status.error
-                  ? Center(
-                      child: Text('Courses Not Found'),
-                    )
-                  : _courseListDataStatus == Status.successful
-                      ? Container(
-                          padding: EdgeInsets.only(
-                              left: 25.0.w, right: 25.0.w, top: 20.h),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+              : _courseListDataStatus == Status.successful
+                  ? Container(
+                      padding: EdgeInsets.only(
+                          left: 25.0.w, right: 25.0.w, top: 20.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          15.h.verticalSpace,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              15.h.verticalSpace,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
+                                  Text(
+                                    "${courseDetails?.data?.name ?? ''}",
+                                    style: textStyleInter.copyWith(
+                                        fontSize: 23.sp,
+                                        color: option1Color,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  8.h.verticalSpace,
+                                  Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "${courseDetails?.data?.name ?? ''}",
+                                        "${courseDetails?.data?.rating}(${courseDetails?.data?.reviewCount} reviews)",
                                         style: textStyleInter.copyWith(
-                                            fontSize: 23.sp,
+                                            fontSize: 12.sp,
                                             color: option1Color,
-                                            fontWeight: FontWeight.w600),
+                                            fontWeight: FontWeight.w500),
                                       ),
-                                      8.h.verticalSpace,
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "${courseDetails?.data?.rating}(${courseDetails?.data?.reviewCount} reviews)",
-                                            style: textStyleInter.copyWith(
-                                                fontSize: 12.sp,
-                                                color: option1Color,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ],
-                                      )
                                     ],
-                                  ),
-                                  Container(
-                                    height: 51.h,
-                                    width: 58.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      color: option1Color,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Fee\n${courseDetails?.data?.fee} \$",
-                                        style: textStyleInter.copyWith(
-                                          color: whiteColor,
-                                        ),
-                                      ),
-                                    ),
                                   )
                                 ],
                               ),
-                              40.h.verticalSpace,
-                              Image.network(
-                                "https://molzbackend.six30labs.com/public/${courseDetails?.data?.image?.url}",
-                                height: 160.h,
-                                width: 160.w,
-                              ),
-                              40.h.verticalSpace,
-                              courseDetails?.data?.courseoutlineitems != null
-                                  ? Column(
+                              Container(
+                                height: 51.h,
+                                width: 58.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  color: option1Color,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Fee\n${courseDetails?.data?.fee} \$",
+                                    style: textStyleInter.copyWith(
+                                      color: whiteColor,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          40.h.verticalSpace,
+                          Image.network(
+                            "https://molzbackend.six30labs.com/public/${courseDetails?.data?.image?.url}",
+                            height: 160.h,
+                            width: 160.w,
+                          ),
+                          40.h.verticalSpace,
+                          courseDetails?.data?.courseoutlineitems != null
+                              ? Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Course Outline',
-                                              style: textStyleInter.copyWith(
-                                                color: blackColor,
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            // Text(
-                                            //   "See all",
-                                            //   style: textStyleInter.copyWith(
-                                            //     decoration: TextDecoration.underline,
-                                            //     color: blackColor,
-                                            //     fontSize: 16.sp,
-                                            //     fontWeight: FontWeight.w500,
-                                            //   ),
-                                            // ),
-                                          ],
+                                        Text(
+                                          'Course Outline',
+                                          style: textStyleInter.copyWith(
+                                            color: blackColor,
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
-                                        25.h.verticalSpace,
-                                        SizedBox(
-                                          //height: mediaQHeight(context),
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            itemCount: courseDetails!.data!
-                                                .courseoutlineitems!.length,
-                                            itemBuilder: (context, index) {
-                                              return Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10.h),
-                                                child: Container(
-                                                  height: 62.h,
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 10.w,
-                                                      vertical: 10.h),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15.r),
-                                                    color: option1Color,
-                                                  ),
-                                                  child: Row(
+                                        // Text(
+                                        //   "See all",
+                                        //   style: textStyleInter.copyWith(
+                                        //     decoration: TextDecoration.underline,
+                                        //     color: blackColor,
+                                        //     fontSize: 16.sp,
+                                        //     fontWeight: FontWeight.w500,
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),
+                                    25.h.verticalSpace,
+                                    SizedBox(
+                                      //height: mediaQHeight(context),
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: courseDetails!
+                                            .data!.courseoutlineitems!.length,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10.h),
+                                            child: Container(
+                                              height: 62.h,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.w,
+                                                  vertical: 10.h),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15.r),
+                                                color: option1Color,
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceBetween,
+                                                            .center,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Row(
+                                                      // Image.network(
+                                                      //   "https://molzbackend.six30labs.com/public/${courseDetails?.data?.image?.url}",
+                                                      //   height: 41.h,
+                                                      //   width: 43.w,
+                                                      // ),
+                                                      10.w.horizontalSpace,
+                                                      Column(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .center,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .center,
+                                                                .start,
                                                         children: [
-                                                          // Image.network(
-                                                          //   "https://molzbackend.six30labs.com/public/${courseDetails?.data?.image?.url}",
-                                                          //   height: 41.h,
-                                                          //   width: 43.w,
-                                                          // ),
-                                                          10.w.horizontalSpace,
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                courseDetails!
-                                                                        .data!
-                                                                        .courseoutlineitems![
-                                                                            index]
-                                                                        .title ??
-                                                                    '',
-                                                                style: textStyleInter.copyWith(
+                                                          Text(
+                                                            courseDetails!
+                                                                    .data!
+                                                                    .courseoutlineitems![
+                                                                        index]
+                                                                    .title ??
+                                                                '',
+                                                            style: textStyleInter
+                                                                .copyWith(
                                                                     color:
                                                                         whiteColor,
                                                                     fontSize:
@@ -303,15 +297,16 @@ class _CourseScreenState extends State<CourseScreen> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600),
-                                                              ),
-                                                              Text(
-                                                                courseDetails!
-                                                                        .data!
-                                                                        .courseoutlineitems![
-                                                                            index]
-                                                                        .description ??
-                                                                    '',
-                                                                style: textStyleInter.copyWith(
+                                                          ),
+                                                          Text(
+                                                            courseDetails!
+                                                                    .data!
+                                                                    .courseoutlineitems![
+                                                                        index]
+                                                                    .description ??
+                                                                '',
+                                                            style: textStyleInter
+                                                                .copyWith(
                                                                     color:
                                                                         whiteColor,
                                                                     fontSize:
@@ -319,90 +314,86 @@ class _CourseScreenState extends State<CourseScreen> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w400),
-                                                              ),
-                                                            ],
-                                                          )
+                                                          ),
                                                         ],
-                                                      ),
-                                                      // Image.asset(
-                                                      //   "assets/png/gridicons_play.png",
-                                                      //   height: 36.h,
-                                                      //   width: 36.w,
-                                                      // )
+                                                      )
                                                     ],
                                                   ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        10.h.verticalSpace,
-                                        Container(
-                                          height: 62.h,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10.w, vertical: 10.h),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15.r),
-                                            color: option5Color,
-                                          ),
-                                          child: Row(
+                                                  // Image.asset(
+                                                  //   "assets/png/gridicons_play.png",
+                                                  //   height: 36.h,
+                                                  //   width: 36.w,
+                                                  // )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    10.h.verticalSpace,
+                                    Container(
+                                      height: 62.h,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w, vertical: 10.h),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15.r),
+                                        color: option5Color,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Image.asset(
-                                                    "assets/png/Group 33634.png",
-                                                    height: 41.h,
-                                                    width: 43.w,
-                                                  )
-                                                ],
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Unlock Course Now",
-                                                    style:
-                                                        textStyleInter.copyWith(
-                                                            color: option1Color,
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                  )
-                                                ],
-                                              ),
                                               Image.asset(
-                                                "assets/png/Group 33630.png",
-                                                height: 21.h,
-                                                width: 42.w,
+                                                "assets/png/Group 33634.png",
+                                                height: 41.h,
+                                                width: 43.w,
                                               )
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  : SizedBox(
-                                      child: Center(
-                                          child: Text('No Course Available')),
-                                    )
-                            ],
-                          ),
-                        )
-                      : SizedBox(),
-        ),
-      ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Unlock Course Now",
+                                                style: textStyleInter.copyWith(
+                                                    color: option1Color,
+                                                    fontSize: 14.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              )
+                                            ],
+                                          ),
+                                          Image.asset(
+                                            "assets/png/Group 33630.png",
+                                            height: 21.h,
+                                            width: 42.w,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : SizedBox(
+                                  child: Center(
+                                      child: Text('No Course Available')),
+                                )
+                        ],
+                      ),
+                    )
+                  : SizedBox(),
     );
   }
 }

@@ -72,7 +72,9 @@ class _SearchTestState extends State<SearchTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: CustomScrollView(
         slivers: [
           SliverPadding(

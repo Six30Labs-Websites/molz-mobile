@@ -65,7 +65,7 @@ class _CustomPwdFormFieldState extends State<CustomPwdFormField> {
                       width: 16.w,
                       child: Padding(
                         padding:
-                            const EdgeInsets.only(top: 8, left: 14, right: 14),
+                            const EdgeInsets.only(top: 3, left: 14, right: 14),
                         child: SvgPicture.asset(widget.prefixIcon,
                             height: 16.h, width: 16.w),
                       ),
@@ -99,14 +99,14 @@ class _CustomPwdFormFieldState extends State<CustomPwdFormField> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: const BorderSide(
-                  color: option1Color,
-                ),
+                    // color: option1Color,
+                    ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: const BorderSide(
-                  color: option1Color,
-                ),
+                    // color: option1Color,
+                    ),
               ),
               hintStyle: textStyleFranie.copyWith(
                 fontSize: 10,

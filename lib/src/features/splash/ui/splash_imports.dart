@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:molz/src/features/login/ui/login_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:molz/src/features/walk_through/ui/walk_through_imports.dart';

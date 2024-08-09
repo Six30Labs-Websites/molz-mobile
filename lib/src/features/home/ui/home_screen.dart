@@ -8,6 +8,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Get the current brightness
+    final brightness = MediaQuery.of(context).platformBrightness;
+
+    // Perform any action based on the theme change if needed
+    if (brightness == Brightness.dark) {
+      // Do something when in dark mode
+      print('Dark mode is active');
+    } else {
+      // Do something when in light mode
+      print('Light mode is active');
+    }
+
+    // Call setState to refresh UI if necessary
+    setState(() {
+      // Refresh UI components if necessary
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -163,6 +183,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -183,15 +206,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         : _fetchUserDataStatus == Status.successful
                             ? Flexible(
-                                child: Text(
-                                  "Welcome ${getUserListData?.data?.fullName ?? ''}",
-                                  style: textStyleInter.copyWith(
-                                    color: option1Color,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              )
+                                child: isDarkMode
+                                    ? Text(
+                                        "Welcome ${getUserListData?.data?.fullName ?? ''}",
+                                        style: textStyleInter.copyWith(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w800,
+                                            color: whiteColor),
+                                      )
+                                    : Text(
+                                        "Welcome ${getUserListData?.data?.fullName ?? ''}",
+                                        style: textStyleInter.copyWith(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ))
                             : SizedBox(),
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,21 +233,38 @@ class _HomeScreenState extends State<HomeScreen> {
                             MaterialPageRoute(
                                 builder: (context) => SearchTest()));
                       },
-                      child: Container(
-                        height: 40.h,
-                        width: 40.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7.r),
-                          color: option1Color,
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/svg/carbon_search.svg",
-                            height: 21.h,
-                            width: 21.w,
-                          ),
-                        ),
-                      ),
+                      child: isDarkMode
+                          ? Container(
+                              height: 40.h,
+                              width: 40.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7.r),
+                                color: whiteColor,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/svg/carbon_search.svg",
+                                  height: 21.h,
+                                  width: 21.w,
+                                  color: blackColor,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: 40.h,
+                              width: 40.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7.r),
+                                color: option1Color,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/svg/carbon_search.svg",
+                                  height: 21.h,
+                                  width: 21.w,
+                                ),
+                              ),
+                            ),
                     ),
                     10.h.horizontalSpace,
                     InkWell(
@@ -228,22 +274,39 @@ class _HomeScreenState extends State<HomeScreen> {
                             MaterialPageRoute(
                                 builder: (context) => LogInScreen()));
                       },
-                      child: Container(
-                        height: 40.h,
-                        width: 40.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7.r),
-                          color: option1Color,
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/svg/logout.svg",
-                            height: 21.h,
-                            width: 21.w,
-                            color: whiteColor,
-                          ),
-                        ),
-                      ),
+                      child: isDarkMode
+                          ? Container(
+                              height: 40.h,
+                              width: 40.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7.r),
+                                color: whiteColor,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/svg/logout.svg",
+                                  height: 21.h,
+                                  width: 21.w,
+                                  color: blackColor,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: 40.h,
+                              width: 40.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7.r),
+                                color: option1Color,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/svg/logout.svg",
+                                  height: 21.h,
+                                  width: 21.w,
+                                  color: whiteColor,
+                                ),
+                              ),
+                            ),
                     ),
                   ],
                 ),
@@ -385,14 +448,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Tests',
-                    style: textStyleInter.copyWith(
-                      color: blackColor,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  isDarkMode
+                      ? Text(
+                          'Tests',
+                          style: textStyleInter.copyWith(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                              color: whiteColor),
+                        )
+                      : Text(
+                          'Tests',
+                          style: textStyleInter.copyWith(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -400,15 +470,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                               builder: (context) => ViewAllTests()));
                     },
-                    child: Text(
-                      "See all",
-                      style: textStyleInter.copyWith(
-                        decoration: TextDecoration.underline,
-                        color: blackColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    child: isDarkMode
+                        ? Text(
+                            "See all",
+                            style: textStyleInter.copyWith(
+                              decoration: TextDecoration.underline,
+                              decorationColor: whiteColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              color: whiteColor,
+                            ),
+                          )
+                        : Text(
+                            "See all",
+                            style: textStyleInter.copyWith(
+                              decoration: TextDecoration.underline,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                   ),
                 ],
               ),
@@ -443,7 +523,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       padding:
                                           const EdgeInsets.only(right: 20.0),
                                       child: Container(
-                                        //height: 178.h,
                                         width: 143.w,
                                         padding: EdgeInsets.only(top: 25.h),
                                         decoration: BoxDecoration(
@@ -454,38 +533,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          // crossAxisAlignment:
-                                          //     CrossAxisAlignment.center,
                                           children: [
                                             Image.network(
                                               "https://molzbackend.six30labs.com/public/${testData![index].image?.url}",
                                               height: 71.h,
                                               width: 102.w,
+                                              //fit: BoxFit.cover,
                                             ),
                                             12.h.verticalSpace,
-                                            Expanded(
-                                              child: AutoSizeText(
-                                                  testData![index].name!,
-                                                  textAlign: TextAlign.center,
-                                                  style:
-                                                      textStyleInter.copyWith(
-                                                          color: blackColor,
-                                                          fontSize: 13.sp,
-                                                          fontWeight:
-                                                              FontWeight.w700)),
+                                            Flexible(
+                                              child: Text(
+                                                testData![index].name!,
+                                                textAlign: TextAlign.center,
+                                                style: textStyleInter.copyWith(
+                                                    color: blackColor,
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                                softWrap: true,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                              ),
                                             ),
                                             8.h.verticalSpace,
-                                            Expanded(
-                                              child: Text("Read more",
-                                                  style:
-                                                      textStyleInter.copyWith(
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                          color: blackColor,
-                                                          fontSize: 8.sp,
-                                                          fontWeight:
-                                                              FontWeight.w400)),
+                                            Flexible(
+                                              child: Text(
+                                                "Read more",
+                                                style: textStyleInter.copyWith(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: blackColor,
+                                                    fontSize: 8.sp,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                                softWrap: true,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -502,14 +585,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Courses',
-                    style: textStyleInter.copyWith(
-                      color: blackColor,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  isDarkMode
+                      ? Text(
+                          'Courses',
+                          style: textStyleInter.copyWith(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                              color: whiteColor),
+                        )
+                      : Text(
+                          'Courses',
+                          style: textStyleInter.copyWith(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -517,15 +607,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                               builder: (context) => ViewAllCourses()));
                     },
-                    child: Text(
-                      "See all",
-                      style: textStyleInter.copyWith(
-                        decoration: TextDecoration.underline,
-                        color: blackColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    child: isDarkMode
+                        ? Text("See all",
+                            style: textStyleInter.copyWith(
+                                decoration: TextDecoration.underline,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: whiteColor,
+                                decorationColor: whiteColor))
+                        : Text(
+                            "See all",
+                            style: textStyleInter.copyWith(
+                              decoration: TextDecoration.underline,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                   ),
                 ],
               ),

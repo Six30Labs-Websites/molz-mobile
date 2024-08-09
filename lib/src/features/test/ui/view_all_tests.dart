@@ -51,7 +51,9 @@ class _ViewAllTestsState extends State<ViewAllTests> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: CustomScrollView(
         slivers: [
           SliverPadding(

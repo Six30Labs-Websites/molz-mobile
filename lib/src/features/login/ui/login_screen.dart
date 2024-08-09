@@ -156,30 +156,55 @@ class _LogInScreenState extends State<LogInScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               customHeightSizedBox(mediaQCustomHeight(context, height: 0.12)),
-              SizedBox(
-                  height: 59.h,
-                  width: 194.w,
-                  child: Image.asset(
-                    "assets/logos/Asset11.png",
-                  )),
+              isDarkMode
+                  ? SizedBox(
+                      height: 59.h,
+                      width: 194.w,
+                      child: Image.asset(
+                        "assets/logos/molz_white.png",
+                      ))
+                  : SizedBox(
+                      height: 59.h,
+                      width: 194.w,
+                      child: Image.asset(
+                        "assets/logos/Asset11.png",
+                      )),
               sizeHeight20,
-              CustomTextFormField(
-                headerName: "E-mail",
-                hintText: "Your E-mail",
-                prefixIcon: "assets/svg/mail.svg",
-                postfixIcon: null,
-                controller: _emailController,
-                focusNode: null,
-              ),
+              isDarkMode
+                  ? CustomLoginTextFormFieldDark(
+                      headerName: "E-mail",
+                      hintText: "Your E-mail",
+                      prefixIcon: "assets/svg/mail.svg",
+                      postfixIcon: null,
+                      controller: _emailController,
+                      focusNode: null,
+                    )
+                  : CustomTextFormField(
+                      headerName: "E-mail",
+                      hintText: "Your E-mail",
+                      prefixIcon: "assets/svg/mail.svg",
+                      postfixIcon: null,
+                      controller: _emailController,
+                      focusNode: null,
+                    ),
               customHeightSizedBox(20),
-              CustomPwdFormField(
-                headerName: "Password",
-                hintText: "Your Password",
-                prefixIcon: "assets/svg/lock.svg",
-                postfixIcon: "assets/svg/eye-off.svg",
-                controller: _passwordController,
-                focusNode: null,
-              ),
+              isDarkMode
+                  ? CustomPwdFormFieldDark(
+                      headerName: "Password",
+                      hintText: "Your Password",
+                      prefixIcon: "assets/svg/lock.svg",
+                      postfixIcon: "assets/svg/eye-off.svg",
+                      controller: _passwordController,
+                      focusNode: null,
+                    )
+                  : CustomPwdFormField(
+                      headerName: "Password",
+                      hintText: "Your Password",
+                      prefixIcon: "assets/svg/lock.svg",
+                      postfixIcon: "assets/svg/eye-off.svg",
+                      controller: _passwordController,
+                      focusNode: null,
+                    ),
               sizeHeight10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,20 +214,33 @@ class _LogInScreenState extends State<LogInScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Checkbox(
-                        value: _rememberMe,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _rememberMe = value!;
-                            _saveRememberMeStatus();
-                          });
-                        },
-                      ),
+                      isDarkMode
+                          ? Checkbox(
+                              activeColor: whiteColor,
+                              value: _rememberMe,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _rememberMe = value!;
+                                  _saveRememberMeStatus();
+                                });
+                              },
+                            )
+                          : Checkbox(
+                              value: _rememberMe,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _rememberMe = value!;
+                                  _saveRememberMeStatus();
+                                });
+                              },
+                            ),
                       customWidthSizedBox(4),
                       Text(
                         "Remember Me",
                         style: textStyleFranie.copyWith(
-                            fontSize: 10.sp, color: option4Color),
+                          fontSize: 10.sp,
+                          color: option4Color,
+                        ),
                       )
                     ],
                   ),
@@ -213,22 +251,32 @@ class _LogInScreenState extends State<LogInScreen> {
                     child: Text(
                       "Forgot Password?",
                       style: textStyleFranie.copyWith(
-                          color: option2Color,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                        color: option6Color,
+                      ),
                     ),
                   )
                 ],
               ),
               customHeightSizedBox(40),
-              PrimaryButton(
-                  text: "Login",
-                  press: () {
-                    //navigateCupertino(context, const SignUpScreen());
-                    _molzloginApiCall();
-                  },
-                  btnWidth: mediaQCustomWidth(context, width: 0.55)),
+              isDarkMode
+                  ? PrimaryDarkButton(
+                      text: "Login",
+                      press: () {
+                        //navigateCupertino(context, const SignUpScreen());
+                        _molzloginApiCall();
+                      },
+                      btnWidth: mediaQCustomWidth(context, width: 0.55),
+                    )
+                  : PrimaryButton(
+                      text: "Login",
+                      press: () {
+                        //navigateCupertino(context, const SignUpScreen());
+                        _molzloginApiCall();
+                      },
+                      btnWidth: mediaQCustomWidth(context, width: 0.55),
+                    ),
               customHeightSizedBox(mediaQCustomHeight(context, height: 0.1)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -237,7 +285,9 @@ class _LogInScreenState extends State<LogInScreen> {
                   Text(
                     "Don’t have an account?",
                     style: textStyleFranie.copyWith(
-                        fontSize: 12.sp, color: option4Color),
+                      fontSize: 12.sp,
+                      color: option4Color,
+                    ),
                   ),
                   SizedBox(
                     width: 10,
@@ -249,10 +299,10 @@ class _LogInScreenState extends State<LogInScreen> {
                     child: Text(
                       "SignUp",
                       style: textStyleFranie.copyWith(
-                          color: option2Color,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                        color: option6Color,
+                      ),
                     ),
                   )
                 ],

@@ -39,11 +39,24 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    if (isDarkMode) {
+      debug("Dark Mode");
+    } else {
+      debug("Light Mode");
+    }
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Image.asset("assets/png/Splash_white.png"),
-        ),
+      body: SizedBox.expand(
+        child: isDarkMode
+            ? Image.asset(
+                "assets/png/Splash_dark.png",
+                fit: BoxFit.cover,
+              )
+            : Image.asset(
+                "assets/png/Splash_white.png",
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }

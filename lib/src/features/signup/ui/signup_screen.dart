@@ -139,82 +139,156 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 40.h),
-                    SizedBox(
-                      height: 50.h,
-                      width: 160.w,
-                      child: Image.asset("assets/logos/Asset11.png"),
-                    ),
+                    isDarkMode
+                        ? SizedBox(
+                            height: 59.h,
+                            width: 194.w,
+                            child: Image.asset(
+                              "assets/logos/molz_white.png",
+                            ))
+                        : SizedBox(
+                            height: 59.h,
+                            width: 194.w,
+                            child: Image.asset(
+                              "assets/logos/Asset11.png",
+                            )),
                     sizeHeight20,
-                    CustomTextFormField(
-                      headerName: "FullName",
-                      hintText: "Enter your FullName",
-                      prefixIcon: null,
-                      postfixIcon: null,
-                      controller: _fullNameController,
-                      focusNode: null,
-                    ),
+                    isDarkMode
+                        ? CustomTextFormFieldDark(
+                            headerName: "FullName",
+                            hintText: "Enter your FullName",
+                            postfixIcon: null,
+                            controller: _fullNameController,
+                            focusNode: null,
+                          )
+                        : CustomTextFormField(
+                            headerName: "FullName",
+                            hintText: "Enter your FullName",
+                            prefixIcon: null,
+                            postfixIcon: null,
+                            controller: _fullNameController,
+                            focusNode: null,
+                          ),
                     customHeightSizedBox(15),
-                    CustomTextFormField(
-                      headerName: "E-mail",
-                      hintText: "Enter your email address",
-                      prefixIcon: null,
-                      postfixIcon: null,
-                      controller: _emailController,
-                      focusNode: null,
-                    ),
+                    isDarkMode
+                        ? CustomTextFormFieldDark(
+                            headerName: "E-mail",
+                            hintText: "Enter your email address",
+                            postfixIcon: null,
+                            controller: _emailController,
+                            focusNode: null,
+                          )
+                        : CustomTextFormField(
+                            headerName: "E-mail",
+                            hintText: "Enter your email address",
+                            prefixIcon: null,
+                            postfixIcon: null,
+                            controller: _emailController,
+                            focusNode: null,
+                          ),
                     customHeightSizedBox(15),
-                    CustomPwdFormField(
-                      headerName: "Password",
-                      hintText: "Enter your Password",
-                      prefixIcon: 'assets/svg/lock.svg',
-                      postfixIcon: "assets/svg/eye-off.svg",
-                      controller: _passController,
-                      focusNode: null,
-                    ),
+                    isDarkMode
+                        ? CustomPwdFormFieldDark(
+                            headerName: "Password",
+                            hintText: "Enter your Password",
+                            prefixIcon: "assets/svg/lock.svg",
+                            postfixIcon: "assets/svg/eye-off.svg",
+                            controller: _passController,
+                            focusNode: null,
+                          )
+                        : CustomPwdFormField(
+                            headerName: "Password",
+                            hintText: "Enter your Password",
+                            prefixIcon: 'assets/svg/lock.svg',
+                            postfixIcon: "assets/svg/eye-off.svg",
+                            controller: _passController,
+                            focusNode: null,
+                          ),
                     customHeightSizedBox(15),
-                    CustomPwdFormField(
-                      headerName: "Confirm Password",
-                      hintText: "Re-enter your Password",
-                      prefixIcon: 'assets/svg/lock.svg',
-                      postfixIcon: "assets/svg/eye-off.svg",
-                      controller: _confPassController,
-                      focusNode: null,
-                    ),
+                    isDarkMode
+                        ? CustomPwdFormFieldDark(
+                            headerName: "Confirm Password",
+                            hintText: "Re-enter your Password",
+                            prefixIcon: "assets/svg/lock.svg",
+                            postfixIcon: 'assets/svg/eye-off.svg',
+                            controller: _confPassController,
+                            focusNode: null,
+                          )
+                        : CustomPwdFormField(
+                            headerName: "Confirm Password",
+                            hintText: "Re-enter your Password",
+                            prefixIcon: 'assets/svg/lock.svg',
+                            postfixIcon: "assets/svg/eye-off.svg",
+                            controller: _confPassController,
+                            focusNode: null,
+                          ),
                     customHeightSizedBox(15),
-                    CustomTextFormField(
-                      headerName: "Grade",
-                      hintText: "Enter your Grade",
-                      prefixIcon: null,
-                      postfixIcon: null,
-                      controller: _gradeController,
-                      focusNode: null,
-                    ),
+                    isDarkMode
+                        ? CustomTextFormFieldDark(
+                            headerName: "Grade",
+                            hintText: "Enter your Grade",
+                            postfixIcon: null,
+                            controller: _gradeController,
+                            focusNode: null,
+                          )
+                        : CustomTextFormField(
+                            headerName: "Grade",
+                            hintText: "Enter your Grade",
+                            prefixIcon: null,
+                            postfixIcon: null,
+                            controller: _gradeController,
+                            focusNode: null,
+                          ),
                     customHeightSizedBox(15),
-                    CustomTextFormField(
-                      headerName: "School",
-                      hintText: "Enter your School",
-                      prefixIcon: null,
-                      postfixIcon: null,
-                      controller: _schoolController,
-                      focusNode: null,
-                    ),
+                    isDarkMode
+                        ? CustomTextFormFieldDark(
+                            headerName: "School",
+                            hintText: "Enter your School",
+                            postfixIcon: null,
+                            controller: _schoolController,
+                            focusNode: null,
+                          )
+                        : CustomTextFormField(
+                            headerName: "School",
+                            hintText: "Enter your School",
+                            prefixIcon: null,
+                            postfixIcon: null,
+                            controller: _schoolController,
+                            focusNode: null,
+                          ),
                     customHeightSizedBox(15),
-                    CustomTextFormField(
-                      headerName: "Province",
-                      hintText: "Enter your Province",
-                      prefixIcon: null,
-                      postfixIcon: null,
-                      controller: _provinceController,
-                      focusNode: null,
-                    ),
+                    isDarkMode
+                        ? CustomTextFormFieldDark(
+                            headerName: "Province",
+                            hintText: "Enter your Province",
+                            postfixIcon: null,
+                            controller: _provinceController,
+                            focusNode: null,
+                          )
+                        : CustomTextFormField(
+                            headerName: "Province",
+                            hintText: "Enter your Province",
+                            prefixIcon: null,
+                            postfixIcon: null,
+                            controller: _provinceController,
+                            focusNode: null,
+                          ),
                     customHeightSizedBox(30),
-                    PrimaryButton(
-                      text: "SignUp",
-                      press: () {
-                        _molzSignUpApiCall();
-                      },
-                      btnWidth: mediaQCustomWidth(context, width: 0.55),
-                    ),
+                    isDarkMode
+                        ? PrimaryDarkButton(
+                            text: "SignUp",
+                            press: () {
+                              _molzSignUpApiCall();
+                            },
+                            btnWidth: mediaQCustomWidth(context, width: 0.55),
+                          )
+                        : PrimaryButton(
+                            text: "SignUp",
+                            press: () {
+                              _molzSignUpApiCall();
+                            },
+                            btnWidth: mediaQCustomWidth(context, width: 0.55),
+                          ),
                     customHeightSizedBox(15),
                   ],
                 ),
@@ -233,6 +307,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     "assets/svg/back.svg",
                     width: 35.w,
                     height: 20.h,
+                    color: Colors.grey,
                   ),
                 ),
               ),

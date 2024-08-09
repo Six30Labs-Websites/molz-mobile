@@ -57,6 +57,8 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -93,13 +95,21 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                       },
                     ),
                     20.h.verticalSpace,
-                    PrimaryButton(
-                      text: "Login",
-                      press: () {
-                        navigateRemoveAll(context, const LogInScreen());
-                      },
-                      btnWidth: MediaQuery.of(context).size.width * 0.35,
-                    ),
+                    isDarkMode
+                        ? PrimaryDarkButton(
+                            text: "Login",
+                            press: () {
+                              navigateRemoveAll(context, const LogInScreen());
+                            },
+                            btnWidth: MediaQuery.of(context).size.width * 0.35,
+                          )
+                        : PrimaryButton(
+                            text: "Login",
+                            press: () {
+                              navigateRemoveAll(context, const LogInScreen());
+                            },
+                            btnWidth: MediaQuery.of(context).size.width * 0.35,
+                          ),
                   ],
                 ),
               ),

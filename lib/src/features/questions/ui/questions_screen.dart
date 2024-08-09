@@ -99,6 +99,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
+    if (isDarkMode) {
+      debug("Dark Mode");
+    } else {
+      debug("Light Mode");
+    }
     return WillPopScope(
       onWillPop: () async {
         // Return false to prevent back navigation
@@ -110,6 +118,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: whiteColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           actions: [
@@ -154,104 +163,132 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             )
           ],
         ),
-        body: SafeArea(
-          child: Scaffold(
-            body: SingleChildScrollView(
-              child: _questionsListDataStatus == Status.loading
+        body: SingleChildScrollView(
+          child: _questionsListDataStatus == Status.loading
+              ? const Center(
+                  child: CustomLoader2(
+                    color: itemColor,
+                  ),
+                )
+              : _questionsListDataStatus == Status.error
                   ? const Center(
-                      child: CustomLoader2(
-                        color: itemColor,
-                      ),
+                      child: Text('Questions Not Found'),
                     )
-                  : _questionsListDataStatus == Status.error
-                      ? const Center(
-                          child: Text('Questions Not Found'),
-                        )
-                      : _questionsListDataStatus == Status.successful
-                          ? SizedBox(
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.w),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          20.h.verticalSpace,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Question",
-                                                style: textStyleInter.copyWith(
-                                                  color: option1Color,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 17.sp,
-                                                ),
-                                              ),
-                                              4.w.horizontalSpace,
-                                              Text(
-                                                "${currentQuestion + 1}",
-                                                style: textStyleInter.copyWith(
-                                                  color: option1Color,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 36.sp,
-                                                ),
-                                              ),
-                                              // 6.w.horizontalSpace,
-                                              Text(
-                                                "/${widget.item?.data!.questionsCount}",
-                                                style: textStyleInter.copyWith(
-                                                  color: option1Color,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 17.sp,
-                                                ),
-                                              )
-                                            ],
+                  : _questionsListDataStatus == Status.successful
+                      ? SizedBox(
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    20.h.verticalSpace,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Question",
+                                          style: textStyleInter.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 17.sp,
                                           ),
-                                          4.h.verticalSpace,
-                                          Container(
-                                            height: 1.h,
-                                            color: option1Color,
-                                            width: 144.w,
+                                        ),
+                                        4.w.horizontalSpace,
+                                        Text(
+                                          "${currentQuestion + 1}",
+                                          style: textStyleInter.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 36.sp,
                                           ),
-                                          75.h.verticalSpace,
-                                          AutoSizeText(
-                                            "${testQuestions?.data?.questionText ?? ''}",
-                                            style: textStyleInter.copyWith(
-                                              color: option1Color,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 20.sp,
-                                            ),
+                                        ),
+                                        // 6.w.horizontalSpace,
+                                        Text(
+                                          "/${widget.item?.data!.questionsCount}",
+                                          style: textStyleInter.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 17.sp,
                                           ),
-                                          30.h.verticalSpace,
-                                          Container(
-                                            //padding: const EdgeInsets.all(0.0),
-                                            //height: mediaQCustomHeight(context, height: 0.40.h),
-                                            child: ListView.separated(
-                                                physics:
-                                                    const NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemBuilder: (c, i) {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      debug("message");
-                                                      for (int i = 0;
-                                                          i < optionsVal.length;
-                                                          i++) {
-                                                        optionsVal[i] = false;
-                                                      }
-                                                      optionsVal[i] = true;
-                                                      setState(() {});
-                                                    },
-                                                    child: Container(
+                                        )
+                                      ],
+                                    ),
+                                    4.h.verticalSpace,
+                                    Container(
+                                      height: 1.h,
+                                      color: option1Color,
+                                      width: 144.w,
+                                    ),
+                                    75.h.verticalSpace,
+                                    AutoSizeText(
+                                      "${testQuestions?.data?.questionText ?? ''}",
+                                      style: textStyleInter.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 20.sp,
+                                      ),
+                                    ),
+                                    30.h.verticalSpace,
+                                    Container(
+                                      //padding: const EdgeInsets.all(0.0),
+                                      //height: mediaQCustomHeight(context, height: 0.40.h),
+                                      child: ListView.separated(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemBuilder: (c, i) {
+                                            return InkWell(
+                                              onTap: () {
+                                                debug("message");
+                                                for (int i = 0;
+                                                    i < optionsVal.length;
+                                                    i++) {
+                                                  optionsVal[i] = false;
+                                                }
+                                                optionsVal[i] = true;
+                                                setState(() {});
+                                              },
+                                              child: isDarkMode
+                                                  ? Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 20.w,
+                                                              vertical: 10.h),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.r),
+                                                        border: Border.all(
+                                                          color: option2Color,
+                                                          width: 1.w,
+                                                        ),
+                                                        color: optionsVal[i]
+                                                            ? option6Color
+                                                            : whiteColor,
+                                                      ),
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        testQuestions
+                                                                ?.data
+                                                                ?.choices?[i]
+                                                                ?.label ??
+                                                            '',
+                                                        style: textStyleInter
+                                                            .copyWith(
+                                                          color: !optionsVal[i]
+                                                              ? blackColor
+                                                              : whiteColor,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize: 15.sp,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : Container(
                                                       padding:
                                                           EdgeInsets.symmetric(
                                                               horizontal: 20.w,
@@ -287,79 +324,78 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                                         ),
                                                       ),
                                                     ),
-                                                  );
-                                                },
-                                                separatorBuilder: (c2, i2) {
-                                                  return 15.h.verticalSpace;
-                                                },
-                                                itemCount: testQuestions?.data
-                                                        ?.choices?.length ??
-                                                    0),
-                                          ),
-                                          20.h.verticalSpace,
-                                          Center(
-                                              child: PrimaryButton(
-                                            text: widget.item!.data!
-                                                        .questionsCount! >
+                                            );
+                                          },
+                                          separatorBuilder: (c2, i2) {
+                                            return 15.h.verticalSpace;
+                                          },
+                                          itemCount: testQuestions
+                                                  ?.data?.choices?.length ??
+                                              0),
+                                    ),
+                                    20.h.verticalSpace,
+                                    Center(
+                                      child: PrimaryButton(
+                                        text:
+                                            widget.item!.data!.questionsCount! >
                                                     currentQuestion + 1
                                                 ? "Next"
                                                 : "Submit",
-                                            press: () {
-                                              var isAnswer = false;
-                                              optionsVal
-                                                  .asMap()
-                                                  .forEach((index, item) {
-                                                if (item == true) {
-                                                  isAnswer = true;
-                                                  updateAnswer(
-                                                      testQuestions?.data?.id,
-                                                      testQuestions?.data
-                                                          ?.choices?[index]);
-                                                  debug(
-                                                      "selected value : $index");
-                                                }
-                                              });
-                                              if (isAnswer == false) {
-                                                showToastError(
-                                                    'Please Select One Option!');
-                                              }
-                                            },
-                                            color: option1Color,
-                                            btnWidth: 150.w,
-                                          )),
-                                          20.h.verticalSpace,
-                                        ],
-                                      )),
-                                  Positioned(
-                                      top: 0.h,
-                                      right: -35.w,
-                                      child: Image.asset(
-                                        "assets/png/elip7.png",
-                                        height: 112.h,
-                                        width: 112.w,
-                                      )),
-                                  Positioned(
-                                      top: 22.h,
-                                      right: 45.w,
-                                      child: Image.asset(
-                                        "assets/png/elip9.png",
-                                        height: 86.h,
-                                        width: 86.w,
-                                      )),
-                                  Positioned(
-                                      top: 100.h,
-                                      right: 23.w,
-                                      child: Image.asset(
-                                        "assets/png/elip8.png",
-                                        height: 39.h,
-                                        width: 39.w,
-                                      )),
-                                ],
+                                        press: () {
+                                          var isAnswer = false;
+                                          optionsVal
+                                              .asMap()
+                                              .forEach((index, item) {
+                                            if (item == true) {
+                                              isAnswer = true;
+                                              updateAnswer(
+                                                  testQuestions?.data?.id,
+                                                  testQuestions
+                                                      ?.data?.choices?[index]);
+                                              debug("selected value : $index");
+                                            }
+                                          });
+                                          if (isAnswer == false) {
+                                            showToastError(
+                                                'Please Select One Option!');
+                                          }
+                                        },
+                                        color: option1Color,
+                                        btnWidth: 150.w,
+                                      ),
+                                    ),
+                                    20.h.verticalSpace,
+                                  ],
+                                ),
                               ),
-                            )
-                          : SizedBox(),
-            ),
-          ),
+                              Positioned(
+                                  top: 0.h,
+                                  right: -35.w,
+                                  child: Image.asset(
+                                    "assets/png/elip7.png",
+                                    height: 112.h,
+                                    width: 112.w,
+                                  )),
+                              Positioned(
+                                  top: 22.h,
+                                  right: 45.w,
+                                  child: Image.asset(
+                                    "assets/png/elip9.png",
+                                    height: 86.h,
+                                    width: 86.w,
+                                  )),
+                              Positioned(
+                                  top: 100.h,
+                                  right: 23.w,
+                                  child: Image.asset(
+                                    "assets/png/elip8.png",
+                                    height: 39.h,
+                                    width: 39.w,
+                                  )),
+                            ],
+                          ),
+                        )
+                      : SizedBox(),
         ),
       ),
     );

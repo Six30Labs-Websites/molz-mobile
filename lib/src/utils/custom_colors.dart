@@ -8,6 +8,7 @@ const option3Color = Color(0xffE2C961);
 const redColor = Colors.red;
 const option4Color = Color(0xff747980);
 const option5Color = Color(0xffE5CC5E);
+const option6Color = Color(0xffC09B2E);
 
 const itemColor = Color(0xff25408F);
 const color2 = Color(0xff544fc5);

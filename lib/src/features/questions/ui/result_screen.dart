@@ -44,7 +44,10 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
+      backgroundColor: whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
@@ -85,289 +88,297 @@ class _ResultScreenState extends State<ResultScreen> {
           )
         ],
       ),
-      body: SafeArea(
-        child: Scaffold(
-          body: widget.item?.data?.type == "RIASEC"
-              ? _resultDataStatus == Status.loading
-                  ? const CustomLoader2(
-                      color: itemColor,
+      body: widget.item?.data?.type == "RIASEC"
+          ? _resultDataStatus == Status.loading
+              ? const CustomLoader2(
+                  color: itemColor,
+                )
+              : _resultDataStatus == Status.error
+                  ? Center(
+                      child: Text('Result Not Found'),
                     )
-                  : _resultDataStatus == Status.error
-                      ? Center(
-                          child: Text('Result Not Found'),
-                        )
-                      : _resultDataStatus == Status.successful
-                          ? SingleChildScrollView(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'My Interest Code',
-                                          style: textStyleInter.copyWith(
-                                              fontSize: 20.sp,
-                                              color: option1Color,
-                                              fontWeight: FontWeight.w800),
-                                        ),
-                                      ],
-                                    ),
-                                    15.h.verticalSpace,
-                                    Center(
-                                      child: Container(
-                                        height: 60.h,
-                                        width: 150.w,
-                                        decoration: BoxDecoration(
-                                          color: option1Color,
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: result!.interest!
-                                                .map((item) => Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 8.0),
-                                                      child: Text(
-                                                        item,
-                                                        style: TextStyle(
-                                                            color: whiteColor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    20.h.verticalSpace,
-                                    Center(
-                                      child: Wrap(
-                                        children: [
-                                          Text(
-                                            'NOTE:',
-                                            style: textStyleInter.copyWith(
-                                                fontSize: 14.sp,
-                                                color: blackColor,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          Text(
-                                            'The letters with the highest scores are your Interest Code.',
-                                            style: textStyleInter.copyWith(
-                                                fontSize: 14.sp,
-                                                color: blackColor,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    20.h.verticalSpace,
-                                    buildRow(
-                                      'R',
-                                      'Realistic',
-                                      '${result?.hcR}',
-                                    ),
-                                    buildRow(
-                                      'I',
-                                      'Investigative',
-                                      '${result?.hcI}',
-                                    ),
-                                    buildRow(
-                                      'A',
-                                      'Artistic',
-                                      '${result?.hcA}',
-                                    ),
-                                    buildRow(
-                                      'S',
-                                      'Social',
-                                      '${result?.hcS}',
-                                    ),
-                                    buildRow(
-                                      'E',
-                                      'Enterprising',
-                                      '${result?.hcE}',
-                                    ),
-                                    buildRow(
-                                      'C',
-                                      'Conventional',
-                                      '${result?.hcC}',
-                                    ),
-                                    20.h.verticalSpace,
-                                    CardView(
-                                      result: result,
-                                      description: '${result?.rdescr}',
-                                      expansionTitle: 'Realistic (R)',
-                                      grade: '${result?.rlabel}',
-                                      score: '${result?.hcR}',
-                                      navigatePage: ViewDetailR(),
-                                    ),
-                                    10.h.verticalSpace,
-                                    CardView(
-                                      result: result,
-                                      description: '${result?.idescr}',
-                                      expansionTitle: 'Investigative (I)',
-                                      grade: '${result?.ilabel}',
-                                      score: '${result?.hcI}',
-                                      navigatePage: ViewDetailI(),
-                                    ),
-                                    10.h.verticalSpace,
-                                    CardView(
-                                      result: result,
-                                      description: '${result?.adescr}',
-                                      expansionTitle: 'Artistic (A)',
-                                      grade: '${result?.alabel}',
-                                      score: '${result?.hcA}',
-                                      navigatePage: ViewDetailA(),
-                                    ),
-                                    10.h.verticalSpace,
-                                    CardView(
-                                      result: result,
-                                      description: '${result?.sdescr}',
-                                      expansionTitle: 'Social (S)',
-                                      grade: '${result?.slabel}',
-                                      score: '${result?.hcS}',
-                                      navigatePage: ViewDetailS(),
-                                    ),
-                                    10.h.verticalSpace,
-                                    CardView(
-                                      result: result,
-                                      description: '${result?.edescr}',
-                                      expansionTitle: 'Enterprising (E)',
-                                      grade: '${result?.elabel}',
-                                      score: '${result?.hcE}',
-                                      navigatePage: ViewDetailE(),
-                                    ),
-                                    10.h.verticalSpace,
-                                    CardView(
-                                      result: result,
-                                      description: '${result?.cdescr}',
-                                      expansionTitle: 'Conventional (C)',
-                                      grade: '${result?.clabel}',
-                                      score: '${result?.hcC}',
-                                      navigatePage: ViewDetailC(),
-                                    ),
-                                    10.h.verticalSpace,
-                                  ],
-                                ),
-                              ),
-                            )
-                          : SizedBox()
-              : _resultDataStatus == Status.loading
-                  ? const CustomLoader2(
-                      color: itemColor,
-                    )
-                  : _resultDataStatus == Status.error
-                      ? Center(
-                          child: Text('Result Not Found'),
-                        )
-                      : _resultDataStatus == Status.successful
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  : _resultDataStatus == Status.successful
+                      ? SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 15.w),
-                                  child: Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Results',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 22.sp,
-                                                  color: blackColor,
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                          ],
-                                        ),
-                                        30.h.verticalSpace,
-                                        Wrap(
-                                          children: [
-                                            Text(
-                                              'Score :  ',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 16.sp,
-                                                  color: blackColor,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            Text(
-                                              '${result2?.score}',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 16.sp,
-                                                  color: blackColor,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ],
-                                        ),
-                                        5.h.verticalSpace,
-                                        Wrap(
-                                          children: [
-                                            Text(
-                                              'Label :  ',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 16.sp,
-                                                  color: blackColor,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            Text(
-                                              '${result2?.label}',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 16.sp,
-                                                  color: option1Color,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ],
-                                        ),
-                                        5.h.verticalSpace,
-                                        Wrap(
-                                          children: [
-                                            Text(
-                                              'Description :  ',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 16.sp,
-                                                  color: blackColor,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            Text(
-                                              '${result2?.description}',
-                                              style: textStyleInter.copyWith(
-                                                  fontSize: 16.sp,
-                                                  color: option1Color,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'My Interest Code',
+                                      style: textStyleInter.copyWith(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w800),
                                     ),
+                                  ],
+                                ),
+                                15.h.verticalSpace,
+                                isDarkMode
+                                    ? Center(
+                                        child: Container(
+                                          height: 60.h,
+                                          width: 150.w,
+                                          decoration: BoxDecoration(
+                                            color: option1Color,
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: result!.interest!
+                                                  .map((item) => Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    8.0),
+                                                        child: Text(
+                                                          item,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  whiteColor),
+                                                        ),
+                                                      ))
+                                                  .toList(),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Container(
+                                          height: 60.h,
+                                          width: 150.w,
+                                          decoration: BoxDecoration(
+                                            color: option1Color,
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: result!.interest!
+                                                  .map((item) => Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    8.0),
+                                                        child: Text(
+                                                          item,
+                                                          style: TextStyle(
+                                                              color: whiteColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
+                                                      ))
+                                                  .toList(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                20.h.verticalSpace,
+                                Center(
+                                  child: Wrap(
+                                    children: [
+                                      Text(
+                                        'NOTE: The letters with the highest scores are your Interest Code.',
+                                        style: textStyleInter.copyWith(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Container(
-                                  child: Align(
+                                20.h.verticalSpace,
+                                buildRow(
+                                  'R',
+                                  'Realistic',
+                                  '${result?.hcR}',
+                                ),
+                                buildRow(
+                                  'I',
+                                  'Investigative',
+                                  '${result?.hcI}',
+                                ),
+                                buildRow(
+                                  'A',
+                                  'Artistic',
+                                  '${result?.hcA}',
+                                ),
+                                buildRow(
+                                  'S',
+                                  'Social',
+                                  '${result?.hcS}',
+                                ),
+                                buildRow(
+                                  'E',
+                                  'Enterprising',
+                                  '${result?.hcE}',
+                                ),
+                                buildRow(
+                                  'C',
+                                  'Conventional',
+                                  '${result?.hcC}',
+                                ),
+                                20.h.verticalSpace,
+                                CardView(
+                                  result: result,
+                                  description: '${result?.rdescr}',
+                                  expansionTitle: 'Realistic (R)',
+                                  grade: '${result?.rlabel}',
+                                  score: '${result?.hcR}',
+                                  navigatePage: ViewDetailR(),
+                                ),
+                                10.h.verticalSpace,
+                                CardView(
+                                  result: result,
+                                  description: '${result?.idescr}',
+                                  expansionTitle: 'Investigative (I)',
+                                  grade: '${result?.ilabel}',
+                                  score: '${result?.hcI}',
+                                  navigatePage: ViewDetailI(),
+                                ),
+                                10.h.verticalSpace,
+                                CardView(
+                                  result: result,
+                                  description: '${result?.adescr}',
+                                  expansionTitle: 'Artistic (A)',
+                                  grade: '${result?.alabel}',
+                                  score: '${result?.hcA}',
+                                  navigatePage: ViewDetailA(),
+                                ),
+                                10.h.verticalSpace,
+                                CardView(
+                                  result: result,
+                                  description: '${result?.sdescr}',
+                                  expansionTitle: 'Social (S)',
+                                  grade: '${result?.slabel}',
+                                  score: '${result?.hcS}',
+                                  navigatePage: ViewDetailS(),
+                                ),
+                                10.h.verticalSpace,
+                                CardView(
+                                  result: result,
+                                  description: '${result?.edescr}',
+                                  expansionTitle: 'Enterprising (E)',
+                                  grade: '${result?.elabel}',
+                                  score: '${result?.hcE}',
+                                  navigatePage: ViewDetailE(),
+                                ),
+                                10.h.verticalSpace,
+                                CardView(
+                                  result: result,
+                                  description: '${result?.cdescr}',
+                                  expansionTitle: 'Conventional (C)',
+                                  grade: '${result?.clabel}',
+                                  score: '${result?.hcC}',
+                                  navigatePage: ViewDetailC(),
+                                ),
+                                10.h.verticalSpace,
+                              ],
+                            ),
+                          ),
+                        )
+                      : SizedBox()
+          : _resultDataStatus == Status.loading
+              ? const CustomLoader2(
+                  color: itemColor,
+                )
+              : _resultDataStatus == Status.error
+                  ? Center(
+                      child: Text('Result Not Found'),
+                    )
+                  : _resultDataStatus == Status.successful
+                      ? Column(
+                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Results',
+                                  style: textStyleInter.copyWith(
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ],
+                            ),
+                            120.h.verticalSpace,
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.w),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Wrap(
+                                    children: [
+                                      Text(
+                                        'Score :  ',
+                                        style: textStyleInter.copyWith(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(
+                                        '${result2?.score}',
+                                        style: textStyleInter.copyWith(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  5.h.verticalSpace,
+                                  Wrap(
+                                    children: [
+                                      Text(
+                                        'Label :  ',
+                                        style: textStyleInter.copyWith(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(
+                                        '${result2?.label}',
+                                        style: textStyleInter.copyWith(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  5.h.verticalSpace,
+                                  Wrap(
+                                    children: [
+                                      Text(
+                                        'Description :  ',
+                                        style: textStyleInter.copyWith(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(
+                                        '${result2?.description}',
+                                        style: textStyleInter.copyWith(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  40.h.verticalSpace,
+                                  Align(
                                     alignment: Alignment.center,
                                     child: PrimaryButton(
                                         btnHeight: 35.h,
@@ -383,12 +394,12 @@ class _ResultScreenState extends State<ResultScreen> {
                                           );
                                         }),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             )
-                          : SizedBox(),
-        ),
-      ),
+                          ],
+                        )
+                      : SizedBox(),
     );
   }
 }
@@ -401,34 +412,26 @@ Widget buildRow(String letter, String title, String score) {
         Text(
           letter,
           style: textStyleInter.copyWith(
-              fontSize: 16.sp,
-              color: option1Color,
-              fontWeight: FontWeight.w600),
+              fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         SizedBox(width: 20),
         Expanded(
           child: Text(
             title,
             style: textStyleInter.copyWith(
-                fontSize: 16.sp,
-                color: option1Color,
-                fontWeight: FontWeight.w500),
+                fontSize: 16.sp, fontWeight: FontWeight.w500),
           ),
         ),
         Text(
           ':',
           style: textStyleInter.copyWith(
-              fontSize: 16.sp,
-              color: option1Color,
-              fontWeight: FontWeight.w400),
+              fontSize: 16.sp, fontWeight: FontWeight.w400),
         ),
         SizedBox(width: 10),
         Text(
           score.toString(),
           style: textStyleInter.copyWith(
-              fontSize: 16.sp,
-              color: option1Color,
-              fontWeight: FontWeight.w400),
+              fontSize: 16.sp, fontWeight: FontWeight.w400),
         ),
       ],
     ),
@@ -452,16 +455,12 @@ class DetailText extends StatelessWidget {
           Text(
             leadingText,
             style: textStyleInter.copyWith(
-                color: blackColor,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600),
+                fontSize: 16.sp, fontWeight: FontWeight.w600),
           ),
           Text(
             titleText ?? '',
             style: textStyleInter.copyWith(
-                fontSize: 16.sp,
-                color: blackColor,
-                fontWeight: FontWeight.w400),
+                fontSize: 16.sp, fontWeight: FontWeight.w400),
             softWrap: true,
           ),
         ],
@@ -488,9 +487,9 @@ class CardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10.r),
       child: Theme(
-        //data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         data: ThemeData(
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -498,56 +497,59 @@ class CardView extends StatelessWidget {
           dividerColor: Colors.transparent,
         ),
         child: ExpansionTile(
+          backgroundColor: Colors.grey[100],
+          collapsedBackgroundColor: Colors.grey[100],
           title: Text(
             expansionTitle,
             style: textStyleInter.copyWith(
               fontSize: 16.sp,
-              color: blackColor,
               fontWeight: FontWeight.w700,
+              color: Colors.black87,
             ),
           ),
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DetailText(leadingText: 'Score:', titleText: score),
-                DetailText(leadingText: 'Grade:', titleText: grade),
-                DetailText(leadingText: 'Description:', titleText: description),
-                InkWell(
-                  onTap: () {
-                    debug('More Details Tapped');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => navigatePage),
-                    );
-                  },
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: Center(
-                    child: Container(
-                      height: 30.h,
-                      width: 130.w,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF7288CA),
-                        borderRadius: BorderRadius.circular(5.r),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
+            Padding(
+              padding: EdgeInsets.all(12.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DetailText(leadingText: 'Score:', titleText: score),
+                  DetailText(leadingText: 'Grade:', titleText: grade),
+                  DetailText(
+                      leadingText: 'Description:', titleText: description),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        debug('More Details Tapped');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => navigatePage),
+                        );
+                      },
+                      borderRadius: BorderRadius.circular(5.r),
+                      child: Container(
+                        height: 40.h,
+                        width: 160.w,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF7288CA),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        child: Center(
+                          child: Text(
                             "View More Detail",
-                            style: textStyleInter.copyWith(color: whiteColor),
+                            style: textStyleInter.copyWith(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                10.h.verticalSpace,
-              ],
-            )
+                ],
+              ),
+            ),
           ],
         ),
       ),

@@ -22,13 +22,6 @@ ThemeData lightThemeData(BuildContext context) {
       error: redColor,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      selectedItemColor: option1Color.withOpacity(0.7),
-      unselectedItemColor: blackColor.withOpacity(0.32),
-      selectedIconTheme: const IconThemeData(color: option1Color),
-      showUnselectedLabels: true,
-    ),
   );
 }
 
@@ -39,21 +32,14 @@ ThemeData darkThemeData(BuildContext context) {
     primaryColor: whiteColor,
     // scaffoldBackgroundColor: kContentColorLightTheme,
     scaffoldBackgroundColor: option1Color,
-    appBarTheme: appBarTheme,
+    //appBarTheme: appBarTheme,
     iconTheme: const IconThemeData(color: option3Color),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: option3Color, fontFamily: fontInter),
+        .apply(bodyColor: option1Color, fontFamily: fontInter),
     colorScheme: const ColorScheme.dark().copyWith(
       primary: option1Color,
       secondary: option2Color,
       error: redColor,
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: option1Color,
-      selectedItemColor: whiteColor,
-      unselectedItemColor: blackColor.withOpacity(0.32),
-      selectedIconTheme: const IconThemeData(color: option1Color),
-      showUnselectedLabels: true,
     ),
   );
 }
